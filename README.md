@@ -1,8 +1,29 @@
-# Plinky WebUSB playground
+# Plinky editor
 
-## How this works
+## Running locally
 
-We have abstractions of the `Port` and `Serial` classes.
+This is a Svelte app. To run, clone the repo and do:
+
+```bash
+npm i
+npm run dev
+```
+
+You can then access it in your browser: [http://localhost:5005](http://localhost:5005)
+
+## Deployment
+
+Deployments are automatically done from the `main` branch. To build, run:
+
+```bash
+npm run build
+```
+
+This will replace the content in `/docs/` with the build you just did. Push to deploy.
+
+## How WebUSB works with Plinky
+
+For WebUSB, we have abstractions of the `Port` and `Serial` classes.
 
 ### `Serial` class
 
