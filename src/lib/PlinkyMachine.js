@@ -12,10 +12,9 @@ import {
 } from 'robot3';
 
 import { MachineStore } from './stores/MachineStore';
-import { Patch } from './plinky/patch';
 import { Port } from './webusb/WebUSBPort';
 import { Serial } from './webusb/WebUSBSerial';
-import { patch2JSON } from './plinky/patch2JSON';
+import { Patch } from './plinky/patch2JSON';
 
 /**
  * Class to wire up the WebUSB port responses to the Plinky state machine
@@ -95,7 +94,7 @@ export function createPlinkyMachine(initialContext = {}) {
         if(ev.patch) {
           const patch = ev.patch;
           const arrayBuffer = patch.buffer.slice(patch.byteOffset, patch.byteLength + patch.byteOffset);
-          const patchJSON = patch2JSON(arrayBuffer);
+          const patchJSON = new Patch(arrayBuffer);
           return { ...ctx, patchJSON, patch: arrayBuffer }
         }
         return { ...ctx };
@@ -133,7 +132,7 @@ export function createPlinkyMachine(initialContext = {}) {
         const patchData = Uint8Array.from(Array.prototype.concat(...ev.data.result.map(a => Array.from(a))));
         const arrayBuffer = patchData.buffer.slice(patchData.byteOffset, patchData.byteLength + patchData.byteOffset);
         const patch = new Patch(patchData);
-        const patchJSON = patch2JSON(arrayBuffer);
+        const patchJSON = new Patch(arrayBuffer);
         return { ...ctx, patch: arrayBuffer, patchJSON };
       })),
       transition('error', 'error', reduce((ctx, ev) => {
@@ -152,7 +151,7 @@ export function createPlinkyMachine(initialContext = {}) {
       transition('done', 'connected', reduce((ctx, ev) => {
         const patch = Uint8Array.from(Array.prototype.concat(...ev.data.result.map(a => Array.from(a))));
         const arrayBuffer = patch.buffer.slice(patch.byteOffset, patch.byteLength + patch.byteOffset);
-        const patchJSON = patch2JSON(arrayBuffer);
+        const patchJSON = new Patch(arrayBuffer);
         return { ...ctx, patch: arrayBuffer, patchJSON };
       })),
       transition('error', 'error', reduce((ctx, ev) => {

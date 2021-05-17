@@ -68,7 +68,7 @@ class Param {
 }
 
 
-class Patch {
+export class Patch {
 
   constructor(patch) {
     this.buffer = patch;
@@ -105,6 +105,10 @@ class Patch {
   get loopStart() { return this.bitFieldInt8[1]; }
   get loopLength() { return this.bitFieldInt8[2]; }
 
+  /**
+   * # Replace the entire contents of the patch's underlying buffer
+   * 
+   */ 
   updateBuffer(patch) {
     // @todo - blat `patch` over the contents of this.buffer without reassigning this.buffer. 
   }
@@ -113,61 +117,4 @@ class Patch {
     // @todo - blat this data over the relevant bit of this.buffer
   }
   
-}
-
-export function patch2JSON(patch) {
-
-  return new Patch(patch)
-
-  /*
-  let patchJSON = {
-    buffer: patch,
-    arp: false,
-    latch: false,
-    loopStart: 0,
-    loopLength: 8,
-    params: [],
-  };
-  // each parameter has 16 bytes;
-  // first 2 bytes are the value, then the 7 mod matrix amounts
-  EParams.forEach((param, index) => {
-    // We have 16 bytes that we're looking at
-    const len = 16;
-    // Index to start slicing at
-    const idx = index * len;
-    // We have 16 bytes in the ArrayBuffer that we want
-    const buf = patch.slice(idx, len * index + len);
-
-    //console.log(param, len, idx, "BUF", buf, arr);
-    const plinkyParam = getParam(param) || { name: param, id: param };
-    patchJSON.params.push(new Param({
-      ...plinkyParam,
-      buffer: buf
-    }));
-  });
-
-  //
-  // Go through the bitfield in the last 16 bytes to set flags
-  //
-  // u8 flags;
-  // - if flags & 1 is true, then arp is on
-  // - if flags & 2 is true, then latch is on
-  // s8 loopstart_step_no_offset;
-  // - 0-63 which step the pattern starts on in the current pattern (normally 0)
-  // s8 looplen_step;
-  // - how long the pattern is, (normally 8)
-  // u8 paddy[16-3];
-  // - reserved for future use
-  //
-
-  const field = patch.slice(patch.byteLength - 16, patch.byteLength);
-  patchJSON.arp = (new Uint8Array(field)[0] & 1) > 0;
-  patchJSON.latch = (new Uint8Array(field)[0] & 2) > 0;
-  patchJSON.loopStart = new Int8Array(field)[1];
-  patchJSON.loopLength = new Int8Array(field)[2];
-
-  console.log('bitfield', field, patchJSON);
-
-  return patchJSON;
-  */
 }
