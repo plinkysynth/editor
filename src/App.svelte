@@ -145,8 +145,8 @@
 		<input class="link" value={linkUrl} id="i-link-url">
 
 		<h3>Patch name and category</h3>
-		<input type="text" maxlength="8" value={$store.context.patchJSON.name} id="i-name">
-		<select value={$store.context.patchJSON.category} id="i-category">
+		<input type="text" maxlength="8" value={$store.context.patch.name} id="i-name">
+		<select value={$store.context.patch.category} id="i-category">
 			{#each PatchCategories as category}
 				<option value={category}>{category}</option>
 			{/each}
@@ -156,14 +156,14 @@
 		<h3>Params</h3>
 
 		<p>
-			Arp: {$store.context.patchJSON.arp}<br>
-			Latch: {$store.context.patchJSON.latch}<br>
-			Loop start: {$store.context.patchJSON.loopStart}<br>
-			Loop length: {$store.context.patchJSON.loopLength}<br>
+			Arp: {$store.context.patch.arp}<br>
+			Latch: {$store.context.patch.latch}<br>
+			Loop start: {$store.context.patch.loopStart}<br>
+			Loop length: {$store.context.patch.loopLength}<br>
 		</p>
 
 		<ul class="params">
-			{#each $store.context.patchJSON.params as param}
+			{#each $store.context.patch.params as param}
 				{#if param.name && !param.name.endsWith('_UNUSED')}
 					<li>
 						<h3>{param.name}</h3>
