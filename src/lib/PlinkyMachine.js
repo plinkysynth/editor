@@ -182,7 +182,7 @@ export function createPlinkyMachine(initialContext = {}) {
     port: null,
     patch: null,
     bank,
-    patch: {}
+    patch: null
   }));
 }
 
