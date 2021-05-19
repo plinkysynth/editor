@@ -6,6 +6,7 @@
 	import { PlinkyMachine } from './lib/PlinkyMachine';
 	import { state } from 'robot3';
 	import { PatchCategories } from './lib/plinky/params';
+	import { bytecompress, bytedecompress } from './lib/compress';
 
 	let port;
 	let inref;
@@ -14,44 +15,23 @@
 
 	const { store, send, service } = PlinkyMachine;
 
-	// takes a 1152 element array b and turns into a short base64 string
-	function compress(b) {
-		// swizzle b->bo
-		var bo=new Uint8Array(1552);
-		for (var i=0;i<1552;i++) bo[i]=b[(i%97)*16+((i/97)|0)];
-		var bc=[];
-		for (var i=0;i<1552;) {
-			var from=i;
-			for (;i<1552 && i<from+255 && (bo[i]|| bo[i+1]);++i);
-			bc.push(i-from);
-			for (var j=from;j<i;++j) bc.push(bo[j]);
-			from=i;
-			for (;i<1552 && i<from+255 && !bo[i];++i);
-			bc.push(i-from);  
-		}
-		return btoa(String.fromCharCode.apply(null, bc));
+	function compress(input) {
+		return input.split('').reduce((o, c) => {
+			if (o[o.length - 2] === c && o[o.length - 1] < 35) o[o.length - 1]++;
+			else o.push(c, 0);
+			return o;
+		},[]).map(_ => typeof _ === 'number' ? _.toString(36) : _).join('');
 	}
-	// takes a short base64 string and returns a 1152 element Uint8Array
-	function decompress(s) {
-		var xx=atob(s).split('').map(function (c) { return c.charCodeAt(0); });
-		var o=[];
-		for (var i=0;i<xx.length;) {
-			var len=xx[i++];
-			for (var j=0;j<len;++j) o.push(xx[i++]);
-			len=xx[i++];
-			for (var j=0;j<len;++j) o.push(0);
-		}
-		// unswizzle o->b
-		var b=new Uint8Array(1552);
-		for (var i=0;i<1552;i++) b[(i%97)*16+((i/97)|0)]=o[i]|0;    
-		return b;  
+
+	function decompress(input) {
+		return input.split('').map((c,i,a)=>i%2?undefined:new Array(2+parseInt(a[i+1],36)).join(c)).join('');
 	}
 
 	onMount(() => {
 		let params = (new URL(document.location)).searchParams;
 		let patch = params.get("p");
 		if(patch) {
-			const decodedPatch = decode(decompress(decodeURIComponent(patch)));
+			const decodedPatch = bytedecompress(decodeURIComponent(patch));
 			console.log('patch: ', patch, decodedPatch);
 			send({
 				type: 'parsePatch',
@@ -102,7 +82,7 @@
 	$: error = ['error'].indexOf($store.state) > -1;
 
 	$: linkUrl = $store.context.patch 
-		? location.protocol+'//'+location.host+location.pathname+'?p='+encodeURIComponent(compress(encode(new Uint8Array($store.context.patch.buffer))))
+		? location.protocol+'//'+location.host+location.pathname+'?p='+encodeURIComponent(bytecompress(new Uint8Array($store.context.patch.buffer)))
 		: ""
 
 	function round(num) {
