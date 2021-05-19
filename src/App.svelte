@@ -80,7 +80,9 @@
 	$: disabled = ['loadPatch', 'savePatch'].indexOf($store.state) > -1;
 	$: error = ['error'].indexOf($store.state) > -1;
 
-	$: linkUrl = location.protocol+'//'+location.host+location.pathname+'?p='+encodeURIComponent(compress(encode(new Uint8Array($store.context.patch))));
+	$: linkUrl = $store.context.patch 
+		? location.protocol+'//'+location.host+location.pathname+'?p='+encodeURIComponent(compress(encode(new Uint8Array($store.context.patch.buffer))))
+		: ""
 
 	function round(num) {
 		return Math.round( num * 100 + Number.EPSILON ) / 100;
@@ -138,7 +140,7 @@
 
 		<button on:click|preventDefault={clearPatch}>Clear patch in browser memory</button>
 
-		<p>Loaded: {$store.context.patch.byteLength} bytes</p>
+		<p>Loaded: {$store.context.patch.buffer.byteLength} bytes</p>
 		
 		<h3>Link to patch</h3>
 		<label for="i-link-url">Link:</label>
