@@ -95,6 +95,8 @@ export function createPlinkyMachine(initialContext = {}) {
           const patch = ev.patch;
           const arrayBuffer = patch.buffer.slice(patch.byteOffset, patch.byteLength + patch.byteOffset);
           const patchObject = new Patch(arrayBuffer);
+
+          window.currentPatch = patchObject // <--- grab this if you need to do some debugging
           return { ...ctx, patch: patchObject }
         }
         return { ...ctx };
@@ -131,6 +133,8 @@ export function createPlinkyMachine(initialContext = {}) {
         const patchData = Uint8Array.from(Array.prototype.concat(...ev.data.result.map(a => Array.from(a))));
         const arrayBuffer = patchData.buffer.slice(patchData.byteOffset, patchData.byteLength + patchData.byteOffset);
         const patch = new Patch(arrayBuffer);
+
+        window.currentPatch = patch // <--- grab this if you wanna try debugging things
         return { ...ctx, patch };
       })),
       transition('error', 'error', reduce((ctx, ev) => {
@@ -150,6 +154,8 @@ export function createPlinkyMachine(initialContext = {}) {
         const patch = Uint8Array.from(Array.prototype.concat(...ev.data.result.map(a => Array.from(a))));
         const arrayBuffer = patch.buffer.slice(patch.byteOffset, patch.byteLength + patch.byteOffset);
         const patchObject = new Patch(arrayBuffer);
+
+        window.currentPatch = patchObject // <--- grab this if you wanna try debugging things
         return { ...ctx, patch: patchObject };
       })),
       transition('error', 'error', reduce((ctx, ev) => {
