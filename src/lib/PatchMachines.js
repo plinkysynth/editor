@@ -194,7 +194,7 @@ async function sendBytes(ctx) {
 export const PatchSaveMachine = createMachine({
   idle: state(
     immediate('setHeader', reduce(ctx => {
-      const data = new Uint8Array(ctx.patch);
+      const data = new Uint8Array(ctx.patch.buffer);
       const currentIteration = 0;
       return { ...ctx, processedBytes: 0, bytesToProcess: data.byteLength, data, currentIteration } 
     })),
