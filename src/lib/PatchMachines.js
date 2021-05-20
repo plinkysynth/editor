@@ -113,7 +113,8 @@ async function sendLoadRequest(ctx) {
   console.log('sendLoadRequest', ctx.port, 'patchNumber', ctx.patchNumber);
   // [0xf3,0x0f,0xab,0xca,  0,   32,             0,0,0,0 ]
   //  header                get  current preset  padding ]
-  const buf = new Uint8Array([0xf3,0x0f,0xab,0xca,0,ctx.patchNumber,0,0,0,0]);
+  const patchIndex = ctx.patchNumber - 1 // 1-indexed to 0-indexed
+  const buf = new Uint8Array([0xf3,0x0f,0xab,0xca,0,patchIndex,0,0,0,0]);
   ctx.port.send(buf);
   return true;
 }
@@ -167,7 +168,8 @@ async function sendWriteRequest(ctx) {
   let view = new DataView(arr);
   view.setUint32(0, ctx.bytesToProcess, true);
   const len = new Uint8Array(arr);
-  const buf = new Uint8Array([0xf3,0x0f,0xab,0xca,1,ctx.patchNumber,0,0,len[0],len[1]]);
+  const patchIndex = ctx.patchNumber - 1 // 1-indexed to 0-indexed
+  const buf = new Uint8Array([0xf3,0x0f,0xab,0xca,1,patchIndex,0,0,len[0],len[1]]);
   console.log('sending buffer', buf, "ctx.bytesToProcess", ctx.bytesToProcess, "len.byteLength", len.byteLength, "len", len);
   ctx.port.send(buf);
   return true;

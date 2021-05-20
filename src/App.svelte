@@ -45,6 +45,8 @@
 	}
 
 	function loadPatch() {
+		if ($store.context.patchNumber < 1) $store.context.patchNumber = 1
+		if ($store.context.patchNumber > 32) $store.context.patchNumber = 32
 		send({
 			type: 'loadPatch',
 			patchNumber: $store.context.patchNumber
@@ -52,6 +54,8 @@
 	}
 
 	function savePatch() {
+		if ($store.context.patchNumber < 1) $store.context.patchNumber = 1
+		if ($store.context.patchNumber > 32) $store.context.patchNumber = 32
 		send({
 			type: 'savePatch',
 			patchNumber: $store.context.patchNumber
@@ -113,7 +117,7 @@
 		<h2>Patch</h2>
 		<p>Per-patch operations - you can load and save patches on the device.</p>
 		<label for="i-patch-number">Patch number (zero index, 0-31)</label>
-		<input min="0" max="32" type="number" disabled={disabled} id="i-patch-number" bind:value={$store.context.patchNumber} />
+		<input min="1" max="32" type="number" disabled={disabled} id="i-patch-number" bind:value={$store.context.patchNumber} />
 		<button disabled={disabled} on:click={loadPatch}>Load patch</button>
 		<button disabled={disabled} on:click={savePatch}>Save patch</button>
 
