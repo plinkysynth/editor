@@ -123,7 +123,7 @@
 	<div style="display: {connected ? 'block' : 'none'}">
 		<h2>Patch</h2>
 		<p>Per-patch operations - you can load and save patches on the device.</p>
-		<label for="i-patch-number">Patch number (zero index, 0-31)</label>
+		<label for="i-patch-number">Patch number</label>
 		<input 
 			min="1" 
 			max="32" 
