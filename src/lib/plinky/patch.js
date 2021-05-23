@@ -1,4 +1,4 @@
-import { EParams, PlinkyParams } from './params';
+import { EParams, PlinkyParams, PatchCategories } from './params';
 
 function getParam(id) {
   return PlinkyParams.find(param => {
@@ -73,8 +73,6 @@ export class Patch {
   constructor(patch) {
     this.buffer = patch;
     this.params = [];
-    this.name = '';
-    this.category = '';
 
     // each parameter has 16 bytes;
     // first 2 bytes are the value, then the 7 mod matrix amounts
@@ -104,6 +102,40 @@ export class Patch {
   get latch() { return (this.bitFieldUInt8[0] & 2) > 0; }
   get loopStart() { return this.bitFieldInt8[1]; }
   get loopLength() { return this.bitFieldInt8[2]; }
+  
+  get category () {
+    const categoryArray = new Uint8Array(this.buffer, 1543, 1);
+    const i = categoryArray[0];
+    return PatchCategories[i];
+  }
+  
+  set category (category) {
+    let i = PatchCategories.indexOf(category);
+    if (i < 0) i = 0;
+    const categoryArray = new Uint8Array(this.buffer, 1543, 1);
+    categoryArray[0] = i;
+  }
+  
+  get name () {
+    const nameArray = new Uint8Array(this.buffer, 1544, 8);
+    let str = "";
+    nameArray.forEach(a => { 
+      if (a == 0) return;
+      str += String.fromCharCode(a);
+    })
+    return str;
+  }
+  
+  set name (str) {
+    const nameArray = new Uint8Array(this.buffer, 1544, 8);
+    let i = 0;
+    while (i < 8) {
+      let charCode = str.charCodeAt(i);
+      if (isNaN(charCode)) charCode = 0;
+      nameArray[i] = charCode;
+      i++;
+    }
+  }
 
   /**
    * # Replace the entire contents of the patch's underlying buffer
