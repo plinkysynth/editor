@@ -2519,10 +2519,20 @@ var app = (function () {
         for (;i<1552 && i<from+255 && !bo[i];++i);
         bc.push(i-from);  
       }
-      return btoa(String.fromCharCode.apply(null, bc));
+      const compressed = btoa(String.fromCharCode.apply(null, bc));
+      const uriSafe = compressed
+        .replace(/\//g, "-")
+        .replace(/=/g, "_")
+        .replace(/\+/g, ".");
+      return uriSafe
     }
+
     // takes a short base64 string and returns a 1152 element Uint8Array
     function bytedecompress(s) {
+      s = s
+        .replace(/-/g, "/")
+        .replace(/_/g, "=")
+        .replace(/\./g, "+");
       var xx=atob(s).split('').map(function (c) { return c.charCodeAt(0); });
       var o=[];
       for (var i=0;i<xx.length;) {
