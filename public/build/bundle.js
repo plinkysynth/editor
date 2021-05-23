@@ -2307,12 +2307,10 @@ var app = (function () {
       
       get category () {
         const categoryArray = new Uint8Array(this.buffer, 1543, 1);
-        const i = categoryArray[0];
-        return PatchCategories[i];
+        return categoryArray[0];
       }
       
-      set category (category) {
-        let i = PatchCategories.indexOf(category);
+      set category (i) {
         if (i < 0) i = 0;
         const categoryArray = new Uint8Array(this.buffer, 1543, 1);
         categoryArray[0] = i;
@@ -2593,6 +2591,7 @@ var app = (function () {
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[27] = list[i];
+    	child_ctx[29] = i;
     	return child_ctx;
     }
 
@@ -2681,7 +2680,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No patch in browser memory";
-    			add_location(p, file, 249, 2, 6541);
+    			add_location(p, file, 249, 2, 6537);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -2843,14 +2842,14 @@ var app = (function () {
     			add_location(input1, file, 177, 2, 4679);
     			attr_dev(select, "id", "i-category");
     			add_location(select, file, 178, 2, 4789);
-    			add_location(h32, file, 185, 2, 4992);
-    			add_location(br0, file, 188, 34, 5049);
-    			add_location(br1, file, 189, 38, 5092);
-    			add_location(br2, file, 190, 47, 5144);
-    			add_location(br3, file, 191, 49, 5198);
-    			add_location(p2, file, 187, 2, 5011);
+    			add_location(h32, file, 185, 2, 4988);
+    			add_location(br0, file, 188, 34, 5045);
+    			add_location(br1, file, 189, 38, 5088);
+    			add_location(br2, file, 190, 47, 5140);
+    			add_location(br3, file, 191, 49, 5194);
+    			add_location(p2, file, 187, 2, 5007);
     			attr_dev(ul, "class", "params svelte-1rz8qbw");
-    			add_location(ul, file, 194, 2, 5213);
+    			add_location(ul, file, 194, 2, 5209);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -2919,7 +2918,7 @@ var app = (function () {
     				prop_dev(input0, "value", /*linkUrl*/ ctx[5]);
     			}
 
-    			if (dirty & /*$store, PatchCategories*/ 1 && input1_value_value !== (input1_value_value = /*$store*/ ctx[0].context.patch.name) && input1.value !== input1_value_value) {
+    			if (dirty & /*$store*/ 1 && input1_value_value !== (input1_value_value = /*$store*/ ctx[0].context.patch.name) && input1.value !== input1_value_value) {
     				prop_dev(input1, "value", input1_value_value);
     			}
 
@@ -2947,7 +2946,7 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty & /*$store, PatchCategories*/ 1 && select_value_value !== (select_value_value = /*$store*/ ctx[0].context.patch.category)) {
+    			if (dirty & /*$store*/ 1 && select_value_value !== (select_value_value = /*$store*/ ctx[0].context.patch.category)) {
     				select_option(select, /*$store*/ ctx[0].context.patch.category);
     			}
 
@@ -3022,7 +3021,7 @@ var app = (function () {
     	return block;
     }
 
-    // (180:3) {#each PatchCategories as category}
+    // (180:3) {#each PatchCategories as category, i}
     function create_each_block_1(ctx) {
     	let option;
     	let t_value = /*category*/ ctx[27] + "";
@@ -3032,9 +3031,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = /*category*/ ctx[27];
+    			option.__value = /*i*/ ctx[29];
     			option.value = option.__value;
-    			add_location(option, file, 180, 4, 4920);
+    			add_location(option, file, 180, 4, 4923);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -3050,7 +3049,7 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(180:3) {#each PatchCategories as category}",
+    		source: "(180:3) {#each PatchCategories as category, i}",
     		ctx
     	});
 
@@ -3249,71 +3248,71 @@ var app = (function () {
     			t47 = text(t47_value);
     			t48 = space();
     			attr_dev(h3, "class", "svelte-1rz8qbw");
-    			add_location(h3, file, 198, 6, 5353);
-    			add_location(br0, file, 200, 21, 5409);
-    			add_location(br1, file, 201, 24, 5438);
+    			add_location(h3, file, 198, 6, 5349);
+    			add_location(br0, file, 200, 21, 5405);
+    			add_location(br1, file, 201, 24, 5434);
     			attr_dev(code, "class", "svelte-1rz8qbw");
-    			add_location(code, file, 199, 6, 5381);
+    			add_location(code, file, 199, 6, 5377);
     			attr_dev(td0, "class", "svelte-1rz8qbw");
-    			add_location(td0, file, 206, 9, 5519);
-    			add_location(br2, file, 207, 45, 5578);
+    			add_location(td0, file, 206, 9, 5515);
+    			add_location(br2, file, 207, 45, 5574);
     			attr_dev(td1, "class", "svelte-1rz8qbw");
-    			add_location(td1, file, 207, 9, 5542);
-    			add_location(tr0, file, 205, 8, 5505);
+    			add_location(td1, file, 207, 9, 5538);
+    			add_location(tr0, file, 205, 8, 5501);
     			attr_dev(td2, "class", "svelte-1rz8qbw");
-    			add_location(td2, file, 210, 9, 5624);
-    			add_location(br3, file, 211, 48, 5685);
+    			add_location(td2, file, 210, 9, 5620);
+    			add_location(br3, file, 211, 48, 5681);
     			attr_dev(td3, "class", "svelte-1rz8qbw");
-    			add_location(td3, file, 211, 9, 5646);
-    			add_location(tr1, file, 209, 8, 5610);
+    			add_location(td3, file, 211, 9, 5642);
+    			add_location(tr1, file, 209, 8, 5606);
     			attr_dev(td4, "class", "svelte-1rz8qbw");
-    			add_location(td4, file, 214, 9, 5731);
-    			add_location(br4, file, 215, 53, 5802);
+    			add_location(td4, file, 214, 9, 5727);
+    			add_location(br4, file, 215, 53, 5798);
     			attr_dev(td5, "class", "svelte-1rz8qbw");
-    			add_location(td5, file, 215, 9, 5758);
-    			add_location(tr2, file, 213, 8, 5717);
+    			add_location(td5, file, 215, 9, 5754);
+    			add_location(tr2, file, 213, 8, 5713);
     			attr_dev(td6, "class", "svelte-1rz8qbw");
-    			add_location(td6, file, 218, 9, 5848);
-    			add_location(br5, file, 219, 46, 5905);
+    			add_location(td6, file, 218, 9, 5844);
+    			add_location(br5, file, 219, 46, 5901);
     			attr_dev(td7, "class", "svelte-1rz8qbw");
-    			add_location(td7, file, 219, 9, 5868);
-    			add_location(tr3, file, 217, 8, 5834);
+    			add_location(td7, file, 219, 9, 5864);
+    			add_location(tr3, file, 217, 8, 5830);
     			attr_dev(table0, "class", "svelte-1rz8qbw");
-    			add_location(table0, file, 204, 7, 5489);
+    			add_location(table0, file, 204, 7, 5485);
     			attr_dev(td8, "class", "svelte-1rz8qbw");
-    			add_location(td8, file, 224, 9, 5982);
-    			add_location(br6, file, 225, 46, 6039);
+    			add_location(td8, file, 224, 9, 5978);
+    			add_location(br6, file, 225, 46, 6035);
     			attr_dev(td9, "class", "svelte-1rz8qbw");
-    			add_location(td9, file, 225, 9, 6002);
-    			add_location(tr4, file, 223, 8, 5968);
+    			add_location(td9, file, 225, 9, 5998);
+    			add_location(tr4, file, 223, 8, 5964);
     			attr_dev(td10, "class", "svelte-1rz8qbw");
-    			add_location(td10, file, 228, 9, 6085);
-    			add_location(br7, file, 229, 46, 6142);
+    			add_location(td10, file, 228, 9, 6081);
+    			add_location(br7, file, 229, 46, 6138);
     			attr_dev(td11, "class", "svelte-1rz8qbw");
-    			add_location(td11, file, 229, 9, 6105);
-    			add_location(tr5, file, 227, 8, 6071);
+    			add_location(td11, file, 229, 9, 6101);
+    			add_location(tr5, file, 227, 8, 6067);
     			attr_dev(td12, "class", "svelte-1rz8qbw");
-    			add_location(td12, file, 232, 9, 6188);
-    			add_location(br8, file, 233, 46, 6245);
+    			add_location(td12, file, 232, 9, 6184);
+    			add_location(br8, file, 233, 46, 6241);
     			attr_dev(td13, "class", "svelte-1rz8qbw");
-    			add_location(td13, file, 233, 9, 6208);
-    			add_location(tr6, file, 231, 8, 6174);
+    			add_location(td13, file, 233, 9, 6204);
+    			add_location(tr6, file, 231, 8, 6170);
     			attr_dev(td14, "class", "svelte-1rz8qbw");
-    			add_location(td14, file, 236, 9, 6291);
-    			add_location(br9, file, 237, 51, 6358);
+    			add_location(td14, file, 236, 9, 6287);
+    			add_location(br9, file, 237, 51, 6354);
     			attr_dev(td15, "class", "svelte-1rz8qbw");
-    			add_location(td15, file, 237, 9, 6316);
-    			add_location(tr7, file, 235, 8, 6277);
+    			add_location(td15, file, 237, 9, 6312);
+    			add_location(tr7, file, 235, 8, 6273);
     			attr_dev(table1, "class", "svelte-1rz8qbw");
-    			add_location(table1, file, 222, 7, 5952);
+    			add_location(table1, file, 222, 7, 5948);
     			attr_dev(div0, "class", "mods svelte-1rz8qbw");
-    			add_location(div0, file, 203, 6, 5463);
+    			add_location(div0, file, 203, 6, 5459);
     			attr_dev(p, "class", "svelte-1rz8qbw");
-    			add_location(p, file, 242, 7, 6450);
+    			add_location(p, file, 242, 7, 6446);
     			attr_dev(div1, "class", "description svelte-1rz8qbw");
-    			add_location(div1, file, 241, 6, 6417);
+    			add_location(div1, file, 241, 6, 6413);
     			attr_dev(li, "class", "svelte-1rz8qbw");
-    			add_location(li, file, 197, 5, 5342);
+    			add_location(li, file, 197, 5, 5338);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);

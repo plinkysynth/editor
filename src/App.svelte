@@ -177,8 +177,8 @@
 		<h3>Patch name and category</h3>
 		<input type="text" maxlength="8" value={$store.context.patch.name} on:change={updatePatchName} id="i-name">
 		<select on:blur={updateCategory} value={$store.context.patch.category} id="i-category">
-			{#each PatchCategories as category}
-				<option value={category}>{category}</option>
+			{#each PatchCategories as category, i}
+				<option value={i}>{category}</option>
 			{/each}
 		</select>
 

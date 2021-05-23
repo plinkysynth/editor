@@ -105,12 +105,10 @@ export class Patch {
   
   get category () {
     const categoryArray = new Uint8Array(this.buffer, 1543, 1);
-    const i = categoryArray[0];
-    return PatchCategories[i];
+    return categoryArray[0];
   }
   
-  set category (category) {
-    let i = PatchCategories.indexOf(category);
+  set category (i) {
     if (i < 0) i = 0;
     const categoryArray = new Uint8Array(this.buffer, 1543, 1);
     categoryArray[0] = i;
