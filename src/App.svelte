@@ -45,6 +45,8 @@
 	}
 
 	function loadPatch() {
+		if ($store.context.patchNumber < 0) $store.context.patchNumber = 0
+		if ($store.context.patchNumber > 31) $store.context.patchNumber = 31
 		send({
 			type: 'loadPatch',
 			patchNumber: $store.context.patchNumber
@@ -52,6 +54,8 @@
 	}
 
 	function savePatch() {
+		if ($store.context.patchNumber < 0) $store.context.patchNumber = 0
+		if ($store.context.patchNumber > 31) $store.context.patchNumber = 31
 		send({
 			type: 'savePatch',
 			patchNumber: $store.context.patchNumber
@@ -80,6 +84,13 @@
 	$: connected = ['connected', 'loadPatch', 'savePatch'].indexOf($store.state) > -1;
 	$: disabled = ['loadPatch', 'savePatch'].indexOf($store.state) > -1;
 	$: error = ['error'].indexOf($store.state) > -1;
+		
+	let patchVal = $store.context.patchNumber + 1;
+	
+	let setPatchVal = () => {
+		const zeroIndexPatchVal = patchVal - 1;
+		$store.context.patchNumber = zeroIndexPatchVal;
+	}
 
 	$: linkUrl = $store.context.patch 
 		? location.protocol+'//'+location.host+location.pathname+'?p='+encodeURIComponent(bytecompress(new Uint8Array($store.context.patch.buffer)))
@@ -112,8 +123,16 @@
 	<div style="display: {connected ? 'block' : 'none'}">
 		<h2>Patch</h2>
 		<p>Per-patch operations - you can load and save patches on the device.</p>
-		<label for="i-patch-number">Patch number (zero index, 0-31)</label>
-		<input min="0" max="32" type="number" disabled={disabled} id="i-patch-number" bind:value={$store.context.patchNumber} />
+		<label for="i-patch-number">Patch number</label>
+		<input 
+			min="1" 
+			max="32" 
+			type="number" 
+			disabled={disabled} 
+			id="i-patch-number" 
+			bind:value={patchVal} 
+			on:change={setPatchVal}
+		/>
 		<button disabled={disabled} on:click={loadPatch}>Load patch</button>
 		<button disabled={disabled} on:click={savePatch}>Save patch</button>
 
