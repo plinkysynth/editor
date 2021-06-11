@@ -115,7 +115,7 @@
 </script>
 
 <main>
-	<h1>Plinky WebUSB playground</h1>
+	<h1>Plinky WebUSB editor</h1>
 	<h2>Current state: {$store.state}</h2>
 
 	{#if error}
@@ -123,7 +123,8 @@
 	{/if}
 
 	{#if !connected}
-		<p>You need the 0.9l firmware (or newer) to use this!<br><a href="https://plinkysynth.com/firmware">Download here!</a></p>
+		<p>You need the 0.9l firmware (or newer) to use this. <a href="https://plinkysynth.com/firmware">Download here!</a><br>
+		Please use a Chromium based browser like Google Chrome (Edge might work too). Firefox does not work currently.</p>
 	{/if}
 
 	<button style="display: {!connected ? 'block' : 'none'}" on:click={connect}>Connect</button>
