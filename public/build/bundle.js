@@ -2173,6 +2173,14 @@ var app = (function () {
         "description": "Sets the balance between the dry signal of the audio inputs and the wet signal passing through the Reverb and Delay units."
       },
       {
+        "id": "P_ACCEL_SENS",
+        "min": 0,
+        "max": 127,
+        "cc": -1,
+        "name": "Accelerometer sensitivity",
+        "description": "Sets the sensitivity of the accelerometer. Changes in orientation will send to the X & Y parameters. Turn this up to wiggle X & Y by moving your Plinky around in space."
+      },
+      {
         "id": "P_SYS_UNUSED1",
         "min": 0,
         "max": 127,
