@@ -64,6 +64,24 @@ class Param {
   set value(val) {
     this.arr[0] = val
   }
+  
+  getDropdownValues () {
+
+    if (this.enum_name) {
+      const values = this
+        .enum_name
+        .map(
+          (entry, i) => ({ 
+            label: entry, 
+            value: Math.floor(i * (1024 / arr.length) + (1024 / arr.length * 0.5)) 
+          })
+        )
+      return values
+    } else {
+      return null
+    }
+
+  }
 
 }
 
