@@ -69,10 +69,6 @@
     <input type="number" value={displayValue}/>
   </header>
   <main>
-<!--   <code>
-    id: {param.id}<br>
-    val {param.value}<br>
-  </code> -->
   {#if hasDropdown}
   <select
     value={activeOption?activeOption.value:null}
