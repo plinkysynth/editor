@@ -1,11 +1,14 @@
 import { EParams, PlinkyParams, PatchCategories } from './params';
 import { paramIconMap } from './param-icons.js'
+import { formatValue } from '../utils.js'
 
 function getParam(id) {
   return PlinkyParams.find(param => {
     return param.id === id;
   });
 }
+
+
 
 class Param {
 
@@ -64,6 +67,14 @@ class Param {
   }
   set value(val) {
     this.arr[0] = val
+  }
+  
+  get displayValue() {
+    let activeOption = this.getActiveSelectOption();
+    if (activeOption) return activeOption.label;
+    
+    let suffix = "%"; // todo -- which params have me?
+    return formatValue(this.value) + suffix;
   }
   
   getActiveSelectOption () {
