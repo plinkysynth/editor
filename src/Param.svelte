@@ -33,14 +33,21 @@
     : formatValue(param.value)
   }
   
+  function ensureInBounds (n) {
+    if (n > rangeMax) n = rangeMax;
+    if (n < rangeMin) n = rangeMin;
+    return n
+  }
+  
   function updateFromNormalised(e) {
-    e.target.value = denormalise(e.target.value);
-    updateVal(e)
+    let newVal = ensureInBounds(denormalise(e.target.value));
+    const syntheticEvent = { target: { value: newVal }};
+    updateVal(syntheticEvent);
   }
   
   function updateMod(e) {
-    const modsrc = e.target.dataset.mod
-    const newValue = denormalise(e.target.value)
+    const modsrc = e.target.dataset.mod;
+    let newValue = ensureInBounds(denormalise(e.target.value));
     param.mods[modsrc] = newValue
   }
 </script>
