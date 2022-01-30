@@ -84,7 +84,7 @@
     min={rangeMin}
     max={rangeMax}
     step={1}
-    value={displayValue}
+    value={val}
     on:input={updateVal}
     passive={false}
   />
