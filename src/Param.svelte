@@ -1,15 +1,7 @@
 <script>
-  import { formatValue, normalise, denormalise } from "./lib/utils.js"
+  import { formatValue, denormalise } from "./lib/utils.js"
 
   export let param = null
-  
-  function normalise(x) {
-    return (paramMax - paramMin) * ((x-xMin)/(xMax - xMin)) + paramMin;
-  }
-  
-  function round(num) {
-    return Math.round( num * 10 + Number.EPSILON ) / 10;
-  }
   
   const paramMin = -100;
   const paramMax = 100;
@@ -27,7 +19,7 @@
   
   let displayValue = activeOption 
     ? activeOption.label
-    : round(normalise(param.value))
+    : formatValue(param.value)
   
   function updateVal(e) {
     // take into account LERP from minmax
