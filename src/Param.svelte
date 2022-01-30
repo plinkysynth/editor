@@ -8,7 +8,7 @@
   const xMin = -1024;
   const xMax = 1024;
   
-  let val = param;
+  let val = param.value;
   
   let rangeMin = param.min < 0 ? -1024 : 0;
   let rangeMax = 1024;
