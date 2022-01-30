@@ -65,9 +65,21 @@ class Param {
     this.arr[0] = val
   }
   
-  getDropdownValues () {
+  getActiveSelectOption () {
+    let values = this.getSelectOptions()
+    if (!values) return null
+    
+    const width = 1024 / values.length
+    
+    const i = Math.floor(this.value / width)
+    
+    return values[i]
+  }
+  
+  getSelectOptions () {
 
     if (this.enum_name) {
+      
       const length = this.enum_name.length
       const values = this
         .enum_name
