@@ -13,6 +13,9 @@
   let rangeMin = param.min < 0 ? -1024 : 0;
   let rangeMax = 1024;
   
+  let normalisedRangeMin = param.min < 0 ? -100 : 0;
+  let normalisedRangeMax = 100
+  
   let selectOptions = param.getSelectOptions();
   let activeOption = param.getActiveSelectOption();
   let hasDropdown = selectOptions !== null;
