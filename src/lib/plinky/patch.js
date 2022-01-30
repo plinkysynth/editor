@@ -83,9 +83,9 @@ class Param {
     
     const width = 1024 / values.length
     
-    const i = Math.floor(this.value / width)
-    
-    return values[i]
+    let i = Math.floor(this.value / width)
+    if (i >= values.length) i = values.length - 1 // guard overflow in the top half of the top bucket
+    return  values[i]
   }
   
   get icon () {
