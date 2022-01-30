@@ -41,11 +41,16 @@
   -->
 
 <li>
-  <h3>{param.name}</h3>
-  <code>
+  <header>
+    <img src="icons/{param.icon}" alt=""/> 
+    <h3>
+      {param.name}
+    </h3>
+  </header>
+<!--   <code>
     id: {param.id}<br>
     val {param.value}<br>
-  </code>
+  </code> -->
   {#if hasDropdown}
   <select
     value={activeOption.value}
@@ -150,5 +155,21 @@
     margin: 0;
     font-size: 12px;
     line-height: 16px;
+  }
+  
+  header {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    align-items: center;
+    border-bottom: 1px solid #efefef;
+  }
+  header img {
+    width: 50px;
+    height: 50px;
+  }
+  header h3 {
+    flex: 1 1;
+    display: flex;
   }
 </style>

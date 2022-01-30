@@ -1355,7 +1355,7 @@ var app = (function () {
         "min": -1024,
         "max": 1024,
         "cc": 4,
-        "name":"Drive",
+        "name":"Distortion",
         "description": "Drive/Saturation. When turned up high, the saturation unit will create guitar-like tones, especially when playing polyphonically. It can also be used to compensate for changes in volume, for example if the Sensitivity parameter is low."
       },
       {
@@ -2254,6 +2254,105 @@ var app = (function () {
       }
     ];
 
+    const paramIconMap = {
+      "P_PWM": "shape.svg",
+      "P_DRIVE": "distortion--resonance.svg",
+      "P_PITCH": "pitch.svg",
+      "P_OCT": "octave--scale.svg",
+      "P_GLIDE": "glide--microtone.svg",
+      "P_INTERVAL": "osc-interval--column.svg",
+      "P_NOISE": "noise.svg",
+      "P_MIXRESO": "distortion--resonance.svg",
+      "P_ROTATE": "degree.svg",
+      "P_SCALE": "octave--scale.svg",
+      "P_MICROTUNE": "glide--microtone.svg",
+      "P_STRIDE": "osc-interval--column.svg",
+      "P_SENS": "sensitivity--env-2-level.svg",
+      "P_A": "attack.svg",
+      "P_D": "decay.svg",
+      "P_S": "sustain.svg",
+      "P_R": "release.svg",
+      "P_ENV1_UNUSED": "blank.svg",
+      "P_ENV_LEVEL1": "sensitivity--env-2-level.svg",
+      "P_A2": "attack.svg",
+      "P_D2": "decay.svg",
+      "P_S2": "sustain.svg",
+      "P_R2": "release.svg",
+      "P_ENV2_UNUSED": "blank.svg",
+      "P_DLSEND": "delay--reverb.svg",
+      "P_DLTIME": "time.svg",
+      "P_DLRATIO": "pingpong--shimmer.svg",
+      "P_DLWOB": "wobble.svg",
+      "P_DLFB": "feedback.svg",
+      "P_TEMPO": "tempo--swing.svg",
+      "P_RVSEND": "delay--reverb.svg",
+      "P_RVTIME": "time.svg",
+      "P_RVSHIM": "pingpong--shimmer.svg",
+      "P_RVWOB": "wobble.svg",
+      "P_RVUNUSED": "feedback.svg",
+      "P_SWING": "tempo--swing.svg",
+      "P_ARPONOFF": "arp--latch.svg",
+      "P_ARPMODE": "order.svg",
+      "P_ARPDIV": "clock-div.svg",
+      "P_ARPPROB": "chance.svg",
+      "P_ARPLEN": "euclid-len.svg",
+      "P_ARPOCT": "arp-octaves.svg",
+      "P_LATCHONOFF": "arp--latch.svg",
+      "P_SEQMODE": "order.svg",
+      "P_SEQDIV": "clock-div.svg",
+      "P_SEQPROB": "chance.svg",
+      "P_SEQLEN": "euclid-len.svg",
+      "P_GATE_LENGTH": "gate-len.svg",
+      "P_SMP_POS": "scrub--jitter.svg",
+      "P_SMP_GRAINSIZE": "grain-size--jitter.svg",
+      "P_SMP_RATE": "play-speed--jitter.svg",
+      "P_SMP_TIME": "time.svg",
+      "P_SAMPLE": "sample.svg",
+      "P_SEQPAT": "pattern--step-offset.svg",
+      "P_JIT_POS": "scrub--jitter.svg",
+      "P_JIT_GRAINSIZE": "grain-size--jitter.svg",
+      "P_JIT_RATE": "play-speed--jitter.svg",
+      "P_JIT_PULSE": "time.svg",
+      "P_JIT_UNUSED": "blank.svg",
+      "P_SEQSTEP": "pattern--step-offset.svg",
+      "P_ASCALE": "a-b-cv-level.svg",
+      "P_AOFFSET": "offset.svg",
+      "P_ADEPTH": "lfo--depth.svg",
+      "P_AFREQ": "lfo--rate.svg",
+      "P_ASHAPE": "lfo--shape.svg",
+      "P_AWARP": "lfo--symmetry.svg",
+      "P_BSCALE": "a-b-cv-level.svg",
+      "P_BOFFSET": "offset.svg",
+      "P_BDEPTH": "lfo--depth.svg",
+      "P_BFREQ": "lfo--rate.svg",
+      "P_BSHAPE": "lfo--shape.svg",
+      "P_BWARP": "lfo--symmetry.svg",
+      "P_XSCALE": "x-y-cv-level.svg",
+      "P_XOFFSET": "offset.svg",
+      "P_XDEPTH": "lfo--depth.svg",
+      "P_XFREQ": "lfo--rate.svg",
+      "P_XSHAPE": "lfo--shape.svg",
+      "P_XWARP": "lfo--symmetry.svg",
+      "P_YSCALE": "x-y-cv-level.svg",
+      "P_YOFFSET": "offset.svg",
+      "P_YDEPTH": "lfo--depth.svg",
+      "P_YFREQ": "lfo--rate.svg",
+      "P_YSHAPE": "lfo--shape.svg",
+      "P_YWARP": "lfo--symmetry.svg",
+      "P_MIXSYNTH": "synth.svg",
+      "P_MIXWETDRY": "wet-dry.svg",
+      "P_MIXHPF": "hpf.svg",
+      "P_MIX_UNUSED": "blank.svg",
+      "P_CV_QUANT": "cv-quantize.svg",
+      "P_HEADPHONE": "volume.svg",
+      "P_MIXINPUT": "input.svg",
+      "P_MIXINWETDRY": "wet-dry.svg",
+      "P_SYS_UNUSED1": "blank.svg",
+      "P_SYS_UNUSED2": "blank.svg",
+      "P_SYS_UNUSED3": "blank.svg",
+      "P_ACCEL_SENS": "cv-quantize.svg",
+    };
+
     function getParam(id) {
       return PlinkyParams.find(param => {
         return param.id === id;
@@ -2328,6 +2427,10 @@ var app = (function () {
         const i = Math.floor(this.value / width);
         
         return values[i]
+      }
+      
+      get icon () {
+        return paramIconMap[this.id]
       }
       
       getSelectOptions () {
@@ -2671,7 +2774,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (60:2) {:else}
+    // (65:2) {:else}
     function create_else_block(ctx) {
     	let input;
     	let mounted;
@@ -2686,7 +2789,7 @@ var app = (function () {
     			attr_dev(input, "step", 1);
     			input.value = /*val*/ ctx[1];
     			attr_dev(input, "passive", false);
-    			add_location(input, file, 60, 2, 1188);
+    			add_location(input, file, 65, 2, 1278);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -2712,14 +2815,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(60:2) {:else}",
+    		source: "(65:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (49:2) {#if hasDropdown}
+    // (54:2) {#if hasDropdown}
     function create_if_block(ctx) {
     	let select;
     	let mounted;
@@ -2740,7 +2843,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(select, file, 49, 2, 971);
+    			add_location(select, file, 54, 2, 1061);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, select, anchor);
@@ -2793,14 +2896,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(49:2) {#if hasDropdown}",
+    		source: "(54:2) {#if hasDropdown}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (54:4) {#each selectOptions as option, i}
+    // (59:4) {#each selectOptions as option, i}
     function create_each_block(ctx) {
     	let option;
     	let t0_value = /*option*/ ctx[11].label + "";
@@ -2814,7 +2917,7 @@ var app = (function () {
     			t1 = space();
     			option.__value = /*option*/ ctx[11].value;
     			option.value = option.__value;
-    			add_location(option, file, 54, 6, 1083);
+    			add_location(option, file, 59, 6, 1173);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2831,7 +2934,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(54:4) {#each selectOptions as option, i}",
+    		source: "(59:4) {#each selectOptions as option, i}",
     		ctx
     	});
 
@@ -2840,100 +2943,94 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let li;
-    	let h3;
-    	let t0_value = /*param*/ ctx[0].name + "";
+    	let header;
+    	let img;
+    	let img_src_value;
     	let t0;
+    	let h3;
+    	let t1_value = /*param*/ ctx[0].name + "";
     	let t1;
-    	let code;
     	let t2;
-    	let t3_value = /*param*/ ctx[0].id + "";
     	let t3;
-    	let br0;
-    	let t4;
-    	let t5_value = /*param*/ ctx[0].value + "";
-    	let t5;
-    	let br1;
-    	let t6;
-    	let t7;
     	let div0;
     	let table0;
     	let tr0;
     	let td0;
-    	let t9;
+    	let t5;
     	let td1;
-    	let t10_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "";
-    	let t10;
-    	let t11;
-    	let br2;
-    	let t12;
+    	let t6_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "";
+    	let t6;
+    	let t7;
+    	let br0;
+    	let t8;
     	let tr1;
     	let td2;
-    	let t14;
+    	let t10;
     	let td3;
-    	let t15_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "";
-    	let t15;
-    	let t16;
-    	let br3;
-    	let t17;
+    	let t11_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "";
+    	let t11;
+    	let t12;
+    	let br1;
+    	let t13;
     	let tr2;
     	let td4;
-    	let t19;
+    	let t15;
     	let td5;
-    	let t20_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "";
-    	let t20;
-    	let t21;
-    	let br4;
-    	let t22;
+    	let t16_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "";
+    	let t16;
+    	let t17;
+    	let br2;
+    	let t18;
     	let tr3;
     	let td6;
-    	let t24;
+    	let t20;
     	let td7;
-    	let t25_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.a)) + "";
-    	let t25;
-    	let t26;
-    	let br5;
-    	let t27;
+    	let t21_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.a)) + "";
+    	let t21;
+    	let t22;
+    	let br3;
+    	let t23;
     	let table1;
     	let tr4;
     	let td8;
-    	let t29;
+    	let t25;
     	let td9;
-    	let t30_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.b)) + "";
-    	let t30;
-    	let t31;
-    	let br6;
-    	let t32;
+    	let t26_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.b)) + "";
+    	let t26;
+    	let t27;
+    	let br4;
+    	let t28;
     	let tr5;
     	let td10;
-    	let t34;
+    	let t30;
     	let td11;
-    	let t35_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.x)) + "";
-    	let t35;
-    	let t36;
-    	let br7;
-    	let t37;
+    	let t31_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.x)) + "";
+    	let t31;
+    	let t32;
+    	let br5;
+    	let t33;
     	let tr6;
     	let td12;
-    	let t39;
+    	let t35;
     	let td13;
-    	let t40_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.y)) + "";
-    	let t40;
-    	let t41;
-    	let br8;
-    	let t42;
+    	let t36_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.y)) + "";
+    	let t36;
+    	let t37;
+    	let br6;
+    	let t38;
     	let tr7;
     	let td14;
-    	let t44;
+    	let t40;
     	let td15;
-    	let t45_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.random)) + "";
-    	let t45;
-    	let t46;
-    	let br9;
-    	let t47;
+    	let t41_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.random)) + "";
+    	let t41;
+    	let t42;
+    	let br7;
+    	let t43;
     	let div1;
     	let p;
-    	let t48_value = /*param*/ ctx[0].description + "";
-    	let t48;
+    	let t44_value = /*param*/ ctx[0].description + "";
+    	let t44;
 
     	function select_block_type(ctx, dirty) {
     		if (/*hasDropdown*/ ctx[7]) return create_if_block;
@@ -2946,162 +3043,159 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			li = element("li");
+    			header = element("header");
+    			img = element("img");
+    			t0 = space();
     			h3 = element("h3");
-    			t0 = text(t0_value);
-    			t1 = space();
-    			code = element("code");
-    			t2 = text("id: ");
-    			t3 = text(t3_value);
-    			br0 = element("br");
-    			t4 = text("\n    val ");
-    			t5 = text(t5_value);
-    			br1 = element("br");
-    			t6 = space();
+    			t1 = text(t1_value);
+    			t2 = space();
     			if_block.c();
-    			t7 = space();
+    			t3 = space();
     			div0 = element("div");
     			table0 = element("table");
     			tr0 = element("tr");
     			td0 = element("td");
     			td0.textContent = "Base";
-    			t9 = space();
+    			t5 = space();
     			td1 = element("td");
-    			t10 = text(t10_value);
-    			t11 = text("%");
-    			br2 = element("br");
-    			t12 = space();
+    			t6 = text(t6_value);
+    			t7 = text("%");
+    			br0 = element("br");
+    			t8 = space();
     			tr1 = element("tr");
     			td2 = element("td");
     			td2.textContent = "Env";
-    			t14 = space();
+    			t10 = space();
     			td3 = element("td");
-    			t15 = text(t15_value);
-    			t16 = text("%");
-    			br3 = element("br");
-    			t17 = space();
+    			t11 = text(t11_value);
+    			t12 = text("%");
+    			br1 = element("br");
+    			t13 = space();
     			tr2 = element("tr");
     			td4 = element("td");
     			td4.textContent = "Pressure";
-    			t19 = space();
+    			t15 = space();
     			td5 = element("td");
-    			t20 = text(t20_value);
-    			t21 = text("%");
-    			br4 = element("br");
-    			t22 = space();
+    			t16 = text(t16_value);
+    			t17 = text("%");
+    			br2 = element("br");
+    			t18 = space();
     			tr3 = element("tr");
     			td6 = element("td");
     			td6.textContent = "A";
-    			t24 = space();
+    			t20 = space();
     			td7 = element("td");
-    			t25 = text(t25_value);
-    			t26 = text("%");
-    			br5 = element("br");
-    			t27 = space();
+    			t21 = text(t21_value);
+    			t22 = text("%");
+    			br3 = element("br");
+    			t23 = space();
     			table1 = element("table");
     			tr4 = element("tr");
     			td8 = element("td");
     			td8.textContent = "B";
-    			t29 = space();
+    			t25 = space();
     			td9 = element("td");
-    			t30 = text(t30_value);
-    			t31 = text("%");
-    			br6 = element("br");
-    			t32 = space();
+    			t26 = text(t26_value);
+    			t27 = text("%");
+    			br4 = element("br");
+    			t28 = space();
     			tr5 = element("tr");
     			td10 = element("td");
     			td10.textContent = "X";
-    			t34 = space();
+    			t30 = space();
     			td11 = element("td");
-    			t35 = text(t35_value);
-    			t36 = text("%");
-    			br7 = element("br");
-    			t37 = space();
+    			t31 = text(t31_value);
+    			t32 = text("%");
+    			br5 = element("br");
+    			t33 = space();
     			tr6 = element("tr");
     			td12 = element("td");
     			td12.textContent = "Y";
-    			t39 = space();
+    			t35 = space();
     			td13 = element("td");
-    			t40 = text(t40_value);
-    			t41 = text("%");
-    			br8 = element("br");
-    			t42 = space();
+    			t36 = text(t36_value);
+    			t37 = text("%");
+    			br6 = element("br");
+    			t38 = space();
     			tr7 = element("tr");
     			td14 = element("td");
     			td14.textContent = "Random";
-    			t44 = space();
+    			t40 = space();
     			td15 = element("td");
-    			t45 = text(t45_value);
-    			t46 = text("%");
-    			br9 = element("br");
-    			t47 = space();
+    			t41 = text(t41_value);
+    			t42 = text("%");
+    			br7 = element("br");
+    			t43 = space();
     			div1 = element("div");
     			p = element("p");
-    			t48 = text(t48_value);
-    			attr_dev(h3, "class", "svelte-cng8sn");
-    			add_location(h3, file, 43, 2, 859);
-    			add_location(br0, file, 45, 18, 908);
-    			add_location(br1, file, 46, 21, 934);
-    			attr_dev(code, "class", "svelte-cng8sn");
-    			add_location(code, file, 44, 2, 883);
-    			attr_dev(td0, "class", "svelte-cng8sn");
-    			add_location(td0, file, 73, 8, 1390);
-    			add_location(br2, file, 74, 44, 1448);
-    			attr_dev(td1, "class", "svelte-cng8sn");
-    			add_location(td1, file, 74, 8, 1412);
-    			add_location(tr0, file, 72, 6, 1377);
-    			attr_dev(td2, "class", "svelte-cng8sn");
-    			add_location(td2, file, 77, 8, 1489);
-    			add_location(br3, file, 78, 47, 1549);
-    			attr_dev(td3, "class", "svelte-cng8sn");
-    			add_location(td3, file, 78, 8, 1510);
-    			add_location(tr1, file, 76, 6, 1476);
-    			attr_dev(td4, "class", "svelte-cng8sn");
-    			add_location(td4, file, 81, 8, 1590);
-    			add_location(br4, file, 82, 52, 1660);
-    			attr_dev(td5, "class", "svelte-cng8sn");
-    			add_location(td5, file, 82, 8, 1616);
-    			add_location(tr2, file, 80, 6, 1577);
-    			attr_dev(td6, "class", "svelte-cng8sn");
-    			add_location(td6, file, 85, 8, 1701);
-    			add_location(br5, file, 86, 45, 1757);
-    			attr_dev(td7, "class", "svelte-cng8sn");
-    			add_location(td7, file, 86, 8, 1720);
-    			add_location(tr3, file, 84, 6, 1688);
-    			attr_dev(table0, "class", "svelte-cng8sn");
-    			add_location(table0, file, 71, 4, 1363);
-    			attr_dev(td8, "class", "svelte-cng8sn");
-    			add_location(td8, file, 91, 8, 1823);
-    			add_location(br6, file, 92, 45, 1879);
-    			attr_dev(td9, "class", "svelte-cng8sn");
-    			add_location(td9, file, 92, 8, 1842);
-    			add_location(tr4, file, 90, 6, 1810);
-    			attr_dev(td10, "class", "svelte-cng8sn");
-    			add_location(td10, file, 95, 8, 1920);
-    			add_location(br7, file, 96, 45, 1976);
-    			attr_dev(td11, "class", "svelte-cng8sn");
-    			add_location(td11, file, 96, 8, 1939);
-    			add_location(tr5, file, 94, 6, 1907);
-    			attr_dev(td12, "class", "svelte-cng8sn");
-    			add_location(td12, file, 99, 8, 2017);
-    			add_location(br8, file, 100, 45, 2073);
-    			attr_dev(td13, "class", "svelte-cng8sn");
-    			add_location(td13, file, 100, 8, 2036);
-    			add_location(tr6, file, 98, 6, 2004);
-    			attr_dev(td14, "class", "svelte-cng8sn");
-    			add_location(td14, file, 103, 8, 2114);
-    			add_location(br9, file, 104, 50, 2180);
-    			attr_dev(td15, "class", "svelte-cng8sn");
-    			add_location(td15, file, 104, 8, 2138);
-    			add_location(tr7, file, 102, 6, 2101);
-    			attr_dev(table1, "class", "svelte-cng8sn");
-    			add_location(table1, file, 89, 4, 1796);
-    			attr_dev(div0, "class", "mods svelte-cng8sn");
-    			add_location(div0, file, 70, 2, 1340);
-    			attr_dev(p, "class", "svelte-cng8sn");
-    			add_location(p, file, 109, 4, 2256);
-    			attr_dev(div1, "class", "description svelte-cng8sn");
-    			add_location(div1, file, 108, 2, 2226);
-    			attr_dev(li, "class", "svelte-cng8sn");
+    			t44 = text(t44_value);
+    			if (img.src !== (img_src_value = "icons/" + /*param*/ ctx[0].icon)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "");
+    			attr_dev(img, "class", "svelte-xxz8nc");
+    			add_location(img, file, 44, 4, 872);
+    			attr_dev(h3, "class", "svelte-xxz8nc");
+    			add_location(h3, file, 45, 4, 916);
+    			attr_dev(header, "class", "svelte-xxz8nc");
+    			add_location(header, file, 43, 2, 859);
+    			attr_dev(td0, "class", "svelte-xxz8nc");
+    			add_location(td0, file, 78, 8, 1480);
+    			add_location(br0, file, 79, 44, 1538);
+    			attr_dev(td1, "class", "svelte-xxz8nc");
+    			add_location(td1, file, 79, 8, 1502);
+    			add_location(tr0, file, 77, 6, 1467);
+    			attr_dev(td2, "class", "svelte-xxz8nc");
+    			add_location(td2, file, 82, 8, 1579);
+    			add_location(br1, file, 83, 47, 1639);
+    			attr_dev(td3, "class", "svelte-xxz8nc");
+    			add_location(td3, file, 83, 8, 1600);
+    			add_location(tr1, file, 81, 6, 1566);
+    			attr_dev(td4, "class", "svelte-xxz8nc");
+    			add_location(td4, file, 86, 8, 1680);
+    			add_location(br2, file, 87, 52, 1750);
+    			attr_dev(td5, "class", "svelte-xxz8nc");
+    			add_location(td5, file, 87, 8, 1706);
+    			add_location(tr2, file, 85, 6, 1667);
+    			attr_dev(td6, "class", "svelte-xxz8nc");
+    			add_location(td6, file, 90, 8, 1791);
+    			add_location(br3, file, 91, 45, 1847);
+    			attr_dev(td7, "class", "svelte-xxz8nc");
+    			add_location(td7, file, 91, 8, 1810);
+    			add_location(tr3, file, 89, 6, 1778);
+    			attr_dev(table0, "class", "svelte-xxz8nc");
+    			add_location(table0, file, 76, 4, 1453);
+    			attr_dev(td8, "class", "svelte-xxz8nc");
+    			add_location(td8, file, 96, 8, 1913);
+    			add_location(br4, file, 97, 45, 1969);
+    			attr_dev(td9, "class", "svelte-xxz8nc");
+    			add_location(td9, file, 97, 8, 1932);
+    			add_location(tr4, file, 95, 6, 1900);
+    			attr_dev(td10, "class", "svelte-xxz8nc");
+    			add_location(td10, file, 100, 8, 2010);
+    			add_location(br5, file, 101, 45, 2066);
+    			attr_dev(td11, "class", "svelte-xxz8nc");
+    			add_location(td11, file, 101, 8, 2029);
+    			add_location(tr5, file, 99, 6, 1997);
+    			attr_dev(td12, "class", "svelte-xxz8nc");
+    			add_location(td12, file, 104, 8, 2107);
+    			add_location(br6, file, 105, 45, 2163);
+    			attr_dev(td13, "class", "svelte-xxz8nc");
+    			add_location(td13, file, 105, 8, 2126);
+    			add_location(tr6, file, 103, 6, 2094);
+    			attr_dev(td14, "class", "svelte-xxz8nc");
+    			add_location(td14, file, 108, 8, 2204);
+    			add_location(br7, file, 109, 50, 2270);
+    			attr_dev(td15, "class", "svelte-xxz8nc");
+    			add_location(td15, file, 109, 8, 2228);
+    			add_location(tr7, file, 107, 6, 2191);
+    			attr_dev(table1, "class", "svelte-xxz8nc");
+    			add_location(table1, file, 94, 4, 1886);
+    			attr_dev(div0, "class", "mods svelte-xxz8nc");
+    			add_location(div0, file, 75, 2, 1430);
+    			attr_dev(p, "class", "svelte-xxz8nc");
+    			add_location(p, file, 114, 4, 2346);
+    			attr_dev(div1, "class", "description svelte-xxz8nc");
+    			add_location(div1, file, 113, 2, 2316);
+    			attr_dev(li, "class", "svelte-xxz8nc");
     			add_location(li, file, 42, 0, 852);
     		},
     		l: function claim(nodes) {
@@ -3109,104 +3203,101 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
-    			append_dev(li, h3);
-    			append_dev(h3, t0);
-    			append_dev(li, t1);
-    			append_dev(li, code);
-    			append_dev(code, t2);
-    			append_dev(code, t3);
-    			append_dev(code, br0);
-    			append_dev(code, t4);
-    			append_dev(code, t5);
-    			append_dev(code, br1);
-    			append_dev(li, t6);
+    			append_dev(li, header);
+    			append_dev(header, img);
+    			append_dev(header, t0);
+    			append_dev(header, h3);
+    			append_dev(h3, t1);
+    			append_dev(li, t2);
     			if_block.m(li, null);
-    			append_dev(li, t7);
+    			append_dev(li, t3);
     			append_dev(li, div0);
     			append_dev(div0, table0);
     			append_dev(table0, tr0);
     			append_dev(tr0, td0);
-    			append_dev(tr0, t9);
+    			append_dev(tr0, t5);
     			append_dev(tr0, td1);
-    			append_dev(td1, t10);
-    			append_dev(td1, t11);
-    			append_dev(td1, br2);
-    			append_dev(table0, t12);
+    			append_dev(td1, t6);
+    			append_dev(td1, t7);
+    			append_dev(td1, br0);
+    			append_dev(table0, t8);
     			append_dev(table0, tr1);
     			append_dev(tr1, td2);
-    			append_dev(tr1, t14);
+    			append_dev(tr1, t10);
     			append_dev(tr1, td3);
-    			append_dev(td3, t15);
-    			append_dev(td3, t16);
-    			append_dev(td3, br3);
-    			append_dev(table0, t17);
+    			append_dev(td3, t11);
+    			append_dev(td3, t12);
+    			append_dev(td3, br1);
+    			append_dev(table0, t13);
     			append_dev(table0, tr2);
     			append_dev(tr2, td4);
-    			append_dev(tr2, t19);
+    			append_dev(tr2, t15);
     			append_dev(tr2, td5);
-    			append_dev(td5, t20);
-    			append_dev(td5, t21);
-    			append_dev(td5, br4);
-    			append_dev(table0, t22);
+    			append_dev(td5, t16);
+    			append_dev(td5, t17);
+    			append_dev(td5, br2);
+    			append_dev(table0, t18);
     			append_dev(table0, tr3);
     			append_dev(tr3, td6);
-    			append_dev(tr3, t24);
+    			append_dev(tr3, t20);
     			append_dev(tr3, td7);
-    			append_dev(td7, t25);
-    			append_dev(td7, t26);
-    			append_dev(td7, br5);
-    			append_dev(div0, t27);
+    			append_dev(td7, t21);
+    			append_dev(td7, t22);
+    			append_dev(td7, br3);
+    			append_dev(div0, t23);
     			append_dev(div0, table1);
     			append_dev(table1, tr4);
     			append_dev(tr4, td8);
-    			append_dev(tr4, t29);
+    			append_dev(tr4, t25);
     			append_dev(tr4, td9);
-    			append_dev(td9, t30);
-    			append_dev(td9, t31);
-    			append_dev(td9, br6);
-    			append_dev(table1, t32);
+    			append_dev(td9, t26);
+    			append_dev(td9, t27);
+    			append_dev(td9, br4);
+    			append_dev(table1, t28);
     			append_dev(table1, tr5);
     			append_dev(tr5, td10);
-    			append_dev(tr5, t34);
+    			append_dev(tr5, t30);
     			append_dev(tr5, td11);
-    			append_dev(td11, t35);
-    			append_dev(td11, t36);
-    			append_dev(td11, br7);
-    			append_dev(table1, t37);
+    			append_dev(td11, t31);
+    			append_dev(td11, t32);
+    			append_dev(td11, br5);
+    			append_dev(table1, t33);
     			append_dev(table1, tr6);
     			append_dev(tr6, td12);
-    			append_dev(tr6, t39);
+    			append_dev(tr6, t35);
     			append_dev(tr6, td13);
-    			append_dev(td13, t40);
-    			append_dev(td13, t41);
-    			append_dev(td13, br8);
-    			append_dev(table1, t42);
+    			append_dev(td13, t36);
+    			append_dev(td13, t37);
+    			append_dev(td13, br6);
+    			append_dev(table1, t38);
     			append_dev(table1, tr7);
     			append_dev(tr7, td14);
-    			append_dev(tr7, t44);
+    			append_dev(tr7, t40);
     			append_dev(tr7, td15);
-    			append_dev(td15, t45);
-    			append_dev(td15, t46);
-    			append_dev(td15, br9);
-    			append_dev(li, t47);
+    			append_dev(td15, t41);
+    			append_dev(td15, t42);
+    			append_dev(td15, br7);
+    			append_dev(li, t43);
     			append_dev(li, div1);
     			append_dev(div1, p);
-    			append_dev(p, t48);
+    			append_dev(p, t44);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*param*/ 1 && t0_value !== (t0_value = /*param*/ ctx[0].name + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*param*/ 1 && t3_value !== (t3_value = /*param*/ ctx[0].id + "")) set_data_dev(t3, t3_value);
-    			if (dirty & /*param*/ 1 && t5_value !== (t5_value = /*param*/ ctx[0].value + "")) set_data_dev(t5, t5_value);
+    			if (dirty & /*param*/ 1 && img.src !== (img_src_value = "icons/" + /*param*/ ctx[0].icon)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if (dirty & /*param*/ 1 && t1_value !== (t1_value = /*param*/ ctx[0].name + "")) set_data_dev(t1, t1_value);
     			if_block.p(ctx, dirty);
-    			if (dirty & /*param*/ 1 && t10_value !== (t10_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "")) set_data_dev(t10, t10_value);
-    			if (dirty & /*param*/ 1 && t15_value !== (t15_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "")) set_data_dev(t15, t15_value);
-    			if (dirty & /*param*/ 1 && t20_value !== (t20_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "")) set_data_dev(t20, t20_value);
-    			if (dirty & /*param*/ 1 && t25_value !== (t25_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.a)) + "")) set_data_dev(t25, t25_value);
-    			if (dirty & /*param*/ 1 && t30_value !== (t30_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.b)) + "")) set_data_dev(t30, t30_value);
-    			if (dirty & /*param*/ 1 && t35_value !== (t35_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.x)) + "")) set_data_dev(t35, t35_value);
-    			if (dirty & /*param*/ 1 && t40_value !== (t40_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.y)) + "")) set_data_dev(t40, t40_value);
-    			if (dirty & /*param*/ 1 && t45_value !== (t45_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.random)) + "")) set_data_dev(t45, t45_value);
-    			if (dirty & /*param*/ 1 && t48_value !== (t48_value = /*param*/ ctx[0].description + "")) set_data_dev(t48, t48_value);
+    			if (dirty & /*param*/ 1 && t6_value !== (t6_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "")) set_data_dev(t6, t6_value);
+    			if (dirty & /*param*/ 1 && t11_value !== (t11_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "")) set_data_dev(t11, t11_value);
+    			if (dirty & /*param*/ 1 && t16_value !== (t16_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "")) set_data_dev(t16, t16_value);
+    			if (dirty & /*param*/ 1 && t21_value !== (t21_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.a)) + "")) set_data_dev(t21, t21_value);
+    			if (dirty & /*param*/ 1 && t26_value !== (t26_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.b)) + "")) set_data_dev(t26, t26_value);
+    			if (dirty & /*param*/ 1 && t31_value !== (t31_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.x)) + "")) set_data_dev(t31, t31_value);
+    			if (dirty & /*param*/ 1 && t36_value !== (t36_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.y)) + "")) set_data_dev(t36, t36_value);
+    			if (dirty & /*param*/ 1 && t41_value !== (t41_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.random)) + "")) set_data_dev(t41, t41_value);
+    			if (dirty & /*param*/ 1 && t44_value !== (t44_value = /*param*/ ctx[0].description + "")) set_data_dev(t44, t44_value);
     		},
     		i: noop,
     		o: noop,

@@ -1,4 +1,5 @@
 import { EParams, PlinkyParams, PatchCategories } from './params';
+import { paramIconMap } from './param-icons.js'
 
 function getParam(id) {
   return PlinkyParams.find(param => {
@@ -74,6 +75,10 @@ class Param {
     const i = Math.floor(this.value / width)
     
     return values[i]
+  }
+  
+  get icon () {
+    return paramIconMap[this.id]
   }
   
   getSelectOptions () {

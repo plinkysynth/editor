@@ -137,7 +137,7 @@ export const PlinkyParams = [
     "min": -1024,
     "max": 1024,
     "cc": 4,
-    "name":"Drive",
+    "name":"Distortion",
     "description": "Drive/Saturation. When turned up high, the saturation unit will create guitar-like tones, especially when playing polyphonically. It can also be used to compensate for changes in volume, for example if the Sensitivity parameter is low."
   },
   {
