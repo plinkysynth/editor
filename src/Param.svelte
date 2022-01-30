@@ -118,9 +118,10 @@
       </tr>
     </table>
   </div>
-  <div class="description">
+  <details class="description">
+    <summary>Details</summary>
     <p>{param.description}</p>
-  </div>
+  </details>
 </li>
 
 
@@ -154,11 +155,16 @@
     line-height: 18px;
     border-bottom: 1px solid #efefef;
   }
-  .description {
+
+  details {
     padding: 0 16px 16px;
   }
 
-  .description p {
+  summary {
+    cursor: pointer;
+  }
+
+  details p {
     margin: 0;
     font-size: 12px;
     line-height: 16px;
