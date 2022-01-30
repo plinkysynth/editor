@@ -13,8 +13,26 @@
   const paramMax = 100;
   const xMin = -1024;
   const xMax = 1024;
+  
+  let val = param;
+  
+  let rangeMin = param.min < 0 ? -1024 : 0;
+  let rangeMax = 1024;
+  
+  function updateVal(e) {
+    // take into account LERP from minmax
+    val = e.target.value;
+    param.value = val
+  }
 </script>
 
+<!-- 
+  
+  TODO
+  + number inputs to update UI state && internal patch params
+  -' dropdowns for enumerated params
+  - drag-to-update numerical params
+  -->
 
 <li>
   <h3>{param.name}</h3>
@@ -22,6 +40,15 @@
     id: {param.id}<br>
     val {param.value}<br>
   </code>
+  <input 
+    type="range"
+    min={rangeMin}
+    max={rangeMax}
+    step={1}
+    value={val}
+    on:input={updateVal}
+    passive={false}
+  />
   <div class="mods">
     <table>
       <tr>

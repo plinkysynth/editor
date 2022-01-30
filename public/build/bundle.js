@@ -2667,85 +2667,89 @@ var app = (function () {
     	let t5;
     	let br1;
     	let t6;
+    	let input;
+    	let t7;
     	let div0;
     	let table0;
     	let tr0;
     	let td0;
-    	let t8;
-    	let td1;
-    	let t9_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].value)) + "";
     	let t9;
+    	let td1;
+    	let t10_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "";
     	let t10;
-    	let br2;
     	let t11;
+    	let br2;
+    	let t12;
     	let tr1;
     	let td2;
-    	let t13;
-    	let td3;
-    	let t14_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.env)) + "";
     	let t14;
+    	let td3;
+    	let t15_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "";
     	let t15;
-    	let br3;
     	let t16;
+    	let br3;
+    	let t17;
     	let tr2;
     	let td4;
-    	let t18;
-    	let td5;
-    	let t19_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.pressure)) + "";
     	let t19;
+    	let td5;
+    	let t20_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "";
     	let t20;
-    	let br4;
     	let t21;
+    	let br4;
+    	let t22;
     	let tr3;
     	let td6;
-    	let t23;
-    	let td7;
-    	let t24_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.a)) + "";
     	let t24;
+    	let td7;
+    	let t25_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.a)) + "";
     	let t25;
-    	let br5;
     	let t26;
+    	let br5;
+    	let t27;
     	let table1;
     	let tr4;
     	let td8;
-    	let t28;
-    	let td9;
-    	let t29_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.b)) + "";
     	let t29;
+    	let td9;
+    	let t30_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.b)) + "";
     	let t30;
-    	let br6;
     	let t31;
+    	let br6;
+    	let t32;
     	let tr5;
     	let td10;
-    	let t33;
-    	let td11;
-    	let t34_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.x)) + "";
     	let t34;
+    	let td11;
+    	let t35_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.x)) + "";
     	let t35;
-    	let br7;
     	let t36;
+    	let br7;
+    	let t37;
     	let tr6;
     	let td12;
-    	let t38;
-    	let td13;
-    	let t39_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.y)) + "";
     	let t39;
+    	let td13;
+    	let t40_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.y)) + "";
     	let t40;
-    	let br8;
     	let t41;
+    	let br8;
+    	let t42;
     	let tr7;
     	let td14;
-    	let t43;
-    	let td15;
-    	let t44_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.random)) + "";
     	let t44;
+    	let td15;
+    	let t45_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.random)) + "";
     	let t45;
-    	let br9;
     	let t46;
+    	let br9;
+    	let t47;
     	let div1;
     	let p;
-    	let t47_value = /*param*/ ctx[0].description + "";
-    	let t47;
+    	let t48_value = /*param*/ ctx[0].description + "";
+    	let t48;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
@@ -2761,150 +2765,159 @@ var app = (function () {
     			t5 = text(t5_value);
     			br1 = element("br");
     			t6 = space();
+    			input = element("input");
+    			t7 = space();
     			div0 = element("div");
     			table0 = element("table");
     			tr0 = element("tr");
     			td0 = element("td");
     			td0.textContent = "Base";
-    			t8 = space();
+    			t9 = space();
     			td1 = element("td");
-    			t9 = text(t9_value);
-    			t10 = text("%");
+    			t10 = text(t10_value);
+    			t11 = text("%");
     			br2 = element("br");
-    			t11 = space();
+    			t12 = space();
     			tr1 = element("tr");
     			td2 = element("td");
     			td2.textContent = "Env";
-    			t13 = space();
+    			t14 = space();
     			td3 = element("td");
-    			t14 = text(t14_value);
-    			t15 = text("%");
+    			t15 = text(t15_value);
+    			t16 = text("%");
     			br3 = element("br");
-    			t16 = space();
+    			t17 = space();
     			tr2 = element("tr");
     			td4 = element("td");
     			td4.textContent = "Pressure";
-    			t18 = space();
+    			t19 = space();
     			td5 = element("td");
-    			t19 = text(t19_value);
-    			t20 = text("%");
+    			t20 = text(t20_value);
+    			t21 = text("%");
     			br4 = element("br");
-    			t21 = space();
+    			t22 = space();
     			tr3 = element("tr");
     			td6 = element("td");
     			td6.textContent = "A";
-    			t23 = space();
+    			t24 = space();
     			td7 = element("td");
-    			t24 = text(t24_value);
-    			t25 = text("%");
+    			t25 = text(t25_value);
+    			t26 = text("%");
     			br5 = element("br");
-    			t26 = space();
+    			t27 = space();
     			table1 = element("table");
     			tr4 = element("tr");
     			td8 = element("td");
     			td8.textContent = "B";
-    			t28 = space();
+    			t29 = space();
     			td9 = element("td");
-    			t29 = text(t29_value);
-    			t30 = text("%");
+    			t30 = text(t30_value);
+    			t31 = text("%");
     			br6 = element("br");
-    			t31 = space();
+    			t32 = space();
     			tr5 = element("tr");
     			td10 = element("td");
     			td10.textContent = "X";
-    			t33 = space();
+    			t34 = space();
     			td11 = element("td");
-    			t34 = text(t34_value);
-    			t35 = text("%");
+    			t35 = text(t35_value);
+    			t36 = text("%");
     			br7 = element("br");
-    			t36 = space();
+    			t37 = space();
     			tr6 = element("tr");
     			td12 = element("td");
     			td12.textContent = "Y";
-    			t38 = space();
+    			t39 = space();
     			td13 = element("td");
-    			t39 = text(t39_value);
-    			t40 = text("%");
+    			t40 = text(t40_value);
+    			t41 = text("%");
     			br8 = element("br");
-    			t41 = space();
+    			t42 = space();
     			tr7 = element("tr");
     			td14 = element("td");
     			td14.textContent = "Random";
-    			t43 = space();
+    			t44 = space();
     			td15 = element("td");
-    			t44 = text(t44_value);
-    			t45 = text("%");
+    			t45 = text(t45_value);
+    			t46 = text("%");
     			br9 = element("br");
-    			t46 = space();
+    			t47 = space();
     			div1 = element("div");
     			p = element("p");
-    			t47 = text(t47_value);
+    			t48 = text(t48_value);
     			attr_dev(h3, "class", "svelte-cng8sn");
-    			add_location(h3, file, 19, 2, 344);
-    			add_location(br0, file, 21, 18, 393);
-    			add_location(br1, file, 22, 21, 419);
+    			add_location(h3, file, 37, 2, 714);
+    			add_location(br0, file, 39, 18, 763);
+    			add_location(br1, file, 40, 21, 789);
     			attr_dev(code, "class", "svelte-cng8sn");
-    			add_location(code, file, 20, 2, 368);
+    			add_location(code, file, 38, 2, 738);
+    			attr_dev(input, "type", "range");
+    			attr_dev(input, "min", /*rangeMin*/ ctx[3]);
+    			attr_dev(input, "max", /*rangeMax*/ ctx[4]);
+    			attr_dev(input, "step", 1);
+    			input.value = /*val*/ ctx[1];
+    			attr_dev(input, "passive", false);
+    			add_location(input, file, 42, 2, 806);
     			attr_dev(td0, "class", "svelte-cng8sn");
-    			add_location(td0, file, 27, 8, 486);
-    			add_location(br2, file, 28, 44, 544);
+    			add_location(td0, file, 54, 8, 1000);
+    			add_location(br2, file, 55, 44, 1058);
     			attr_dev(td1, "class", "svelte-cng8sn");
-    			add_location(td1, file, 28, 8, 508);
-    			add_location(tr0, file, 26, 6, 473);
+    			add_location(td1, file, 55, 8, 1022);
+    			add_location(tr0, file, 53, 6, 987);
     			attr_dev(td2, "class", "svelte-cng8sn");
-    			add_location(td2, file, 31, 8, 585);
-    			add_location(br3, file, 32, 47, 645);
+    			add_location(td2, file, 58, 8, 1099);
+    			add_location(br3, file, 59, 47, 1159);
     			attr_dev(td3, "class", "svelte-cng8sn");
-    			add_location(td3, file, 32, 8, 606);
-    			add_location(tr1, file, 30, 6, 572);
+    			add_location(td3, file, 59, 8, 1120);
+    			add_location(tr1, file, 57, 6, 1086);
     			attr_dev(td4, "class", "svelte-cng8sn");
-    			add_location(td4, file, 35, 8, 686);
-    			add_location(br4, file, 36, 52, 756);
+    			add_location(td4, file, 62, 8, 1200);
+    			add_location(br4, file, 63, 52, 1270);
     			attr_dev(td5, "class", "svelte-cng8sn");
-    			add_location(td5, file, 36, 8, 712);
-    			add_location(tr2, file, 34, 6, 673);
+    			add_location(td5, file, 63, 8, 1226);
+    			add_location(tr2, file, 61, 6, 1187);
     			attr_dev(td6, "class", "svelte-cng8sn");
-    			add_location(td6, file, 39, 8, 797);
-    			add_location(br5, file, 40, 45, 853);
+    			add_location(td6, file, 66, 8, 1311);
+    			add_location(br5, file, 67, 45, 1367);
     			attr_dev(td7, "class", "svelte-cng8sn");
-    			add_location(td7, file, 40, 8, 816);
-    			add_location(tr3, file, 38, 6, 784);
+    			add_location(td7, file, 67, 8, 1330);
+    			add_location(tr3, file, 65, 6, 1298);
     			attr_dev(table0, "class", "svelte-cng8sn");
-    			add_location(table0, file, 25, 4, 459);
+    			add_location(table0, file, 52, 4, 973);
     			attr_dev(td8, "class", "svelte-cng8sn");
-    			add_location(td8, file, 45, 8, 919);
-    			add_location(br6, file, 46, 45, 975);
+    			add_location(td8, file, 72, 8, 1433);
+    			add_location(br6, file, 73, 45, 1489);
     			attr_dev(td9, "class", "svelte-cng8sn");
-    			add_location(td9, file, 46, 8, 938);
-    			add_location(tr4, file, 44, 6, 906);
+    			add_location(td9, file, 73, 8, 1452);
+    			add_location(tr4, file, 71, 6, 1420);
     			attr_dev(td10, "class", "svelte-cng8sn");
-    			add_location(td10, file, 49, 8, 1016);
-    			add_location(br7, file, 50, 45, 1072);
+    			add_location(td10, file, 76, 8, 1530);
+    			add_location(br7, file, 77, 45, 1586);
     			attr_dev(td11, "class", "svelte-cng8sn");
-    			add_location(td11, file, 50, 8, 1035);
-    			add_location(tr5, file, 48, 6, 1003);
+    			add_location(td11, file, 77, 8, 1549);
+    			add_location(tr5, file, 75, 6, 1517);
     			attr_dev(td12, "class", "svelte-cng8sn");
-    			add_location(td12, file, 53, 8, 1113);
-    			add_location(br8, file, 54, 45, 1169);
+    			add_location(td12, file, 80, 8, 1627);
+    			add_location(br8, file, 81, 45, 1683);
     			attr_dev(td13, "class", "svelte-cng8sn");
-    			add_location(td13, file, 54, 8, 1132);
-    			add_location(tr6, file, 52, 6, 1100);
+    			add_location(td13, file, 81, 8, 1646);
+    			add_location(tr6, file, 79, 6, 1614);
     			attr_dev(td14, "class", "svelte-cng8sn");
-    			add_location(td14, file, 57, 8, 1210);
-    			add_location(br9, file, 58, 50, 1276);
+    			add_location(td14, file, 84, 8, 1724);
+    			add_location(br9, file, 85, 50, 1790);
     			attr_dev(td15, "class", "svelte-cng8sn");
-    			add_location(td15, file, 58, 8, 1234);
-    			add_location(tr7, file, 56, 6, 1197);
+    			add_location(td15, file, 85, 8, 1748);
+    			add_location(tr7, file, 83, 6, 1711);
     			attr_dev(table1, "class", "svelte-cng8sn");
-    			add_location(table1, file, 43, 4, 892);
+    			add_location(table1, file, 70, 4, 1406);
     			attr_dev(div0, "class", "mods svelte-cng8sn");
-    			add_location(div0, file, 24, 2, 436);
+    			add_location(div0, file, 51, 2, 950);
     			attr_dev(p, "class", "svelte-cng8sn");
-    			add_location(p, file, 63, 4, 1352);
+    			add_location(p, file, 90, 4, 1866);
     			attr_dev(div1, "class", "description svelte-cng8sn");
-    			add_location(div1, file, 62, 2, 1322);
+    			add_location(div1, file, 89, 2, 1836);
     			attr_dev(li, "class", "svelte-cng8sn");
-    			add_location(li, file, 18, 0, 337);
+    			add_location(li, file, 36, 0, 707);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2922,95 +2935,109 @@ var app = (function () {
     			append_dev(code, t5);
     			append_dev(code, br1);
     			append_dev(li, t6);
+    			append_dev(li, input);
+    			append_dev(li, t7);
     			append_dev(li, div0);
     			append_dev(div0, table0);
     			append_dev(table0, tr0);
     			append_dev(tr0, td0);
-    			append_dev(tr0, t8);
+    			append_dev(tr0, t9);
     			append_dev(tr0, td1);
-    			append_dev(td1, t9);
     			append_dev(td1, t10);
+    			append_dev(td1, t11);
     			append_dev(td1, br2);
-    			append_dev(table0, t11);
+    			append_dev(table0, t12);
     			append_dev(table0, tr1);
     			append_dev(tr1, td2);
-    			append_dev(tr1, t13);
+    			append_dev(tr1, t14);
     			append_dev(tr1, td3);
-    			append_dev(td3, t14);
     			append_dev(td3, t15);
+    			append_dev(td3, t16);
     			append_dev(td3, br3);
-    			append_dev(table0, t16);
+    			append_dev(table0, t17);
     			append_dev(table0, tr2);
     			append_dev(tr2, td4);
-    			append_dev(tr2, t18);
+    			append_dev(tr2, t19);
     			append_dev(tr2, td5);
-    			append_dev(td5, t19);
     			append_dev(td5, t20);
+    			append_dev(td5, t21);
     			append_dev(td5, br4);
-    			append_dev(table0, t21);
+    			append_dev(table0, t22);
     			append_dev(table0, tr3);
     			append_dev(tr3, td6);
-    			append_dev(tr3, t23);
+    			append_dev(tr3, t24);
     			append_dev(tr3, td7);
-    			append_dev(td7, t24);
     			append_dev(td7, t25);
+    			append_dev(td7, t26);
     			append_dev(td7, br5);
-    			append_dev(div0, t26);
+    			append_dev(div0, t27);
     			append_dev(div0, table1);
     			append_dev(table1, tr4);
     			append_dev(tr4, td8);
-    			append_dev(tr4, t28);
+    			append_dev(tr4, t29);
     			append_dev(tr4, td9);
-    			append_dev(td9, t29);
     			append_dev(td9, t30);
+    			append_dev(td9, t31);
     			append_dev(td9, br6);
-    			append_dev(table1, t31);
+    			append_dev(table1, t32);
     			append_dev(table1, tr5);
     			append_dev(tr5, td10);
-    			append_dev(tr5, t33);
+    			append_dev(tr5, t34);
     			append_dev(tr5, td11);
-    			append_dev(td11, t34);
     			append_dev(td11, t35);
+    			append_dev(td11, t36);
     			append_dev(td11, br7);
-    			append_dev(table1, t36);
+    			append_dev(table1, t37);
     			append_dev(table1, tr6);
     			append_dev(tr6, td12);
-    			append_dev(tr6, t38);
+    			append_dev(tr6, t39);
     			append_dev(tr6, td13);
-    			append_dev(td13, t39);
     			append_dev(td13, t40);
+    			append_dev(td13, t41);
     			append_dev(td13, br8);
-    			append_dev(table1, t41);
+    			append_dev(table1, t42);
     			append_dev(table1, tr7);
     			append_dev(tr7, td14);
-    			append_dev(tr7, t43);
+    			append_dev(tr7, t44);
     			append_dev(tr7, td15);
-    			append_dev(td15, t44);
     			append_dev(td15, t45);
+    			append_dev(td15, t46);
     			append_dev(td15, br9);
-    			append_dev(li, t46);
+    			append_dev(li, t47);
     			append_dev(li, div1);
     			append_dev(div1, p);
-    			append_dev(p, t47);
+    			append_dev(p, t48);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "input", /*updateVal*/ ctx[5], false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*param*/ 1 && t0_value !== (t0_value = /*param*/ ctx[0].name + "")) set_data_dev(t0, t0_value);
     			if (dirty & /*param*/ 1 && t3_value !== (t3_value = /*param*/ ctx[0].id + "")) set_data_dev(t3, t3_value);
     			if (dirty & /*param*/ 1 && t5_value !== (t5_value = /*param*/ ctx[0].value + "")) set_data_dev(t5, t5_value);
-    			if (dirty & /*param*/ 1 && t9_value !== (t9_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].value)) + "")) set_data_dev(t9, t9_value);
-    			if (dirty & /*param*/ 1 && t14_value !== (t14_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.env)) + "")) set_data_dev(t14, t14_value);
-    			if (dirty & /*param*/ 1 && t19_value !== (t19_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.pressure)) + "")) set_data_dev(t19, t19_value);
-    			if (dirty & /*param*/ 1 && t24_value !== (t24_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.a)) + "")) set_data_dev(t24, t24_value);
-    			if (dirty & /*param*/ 1 && t29_value !== (t29_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.b)) + "")) set_data_dev(t29, t29_value);
-    			if (dirty & /*param*/ 1 && t34_value !== (t34_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.x)) + "")) set_data_dev(t34, t34_value);
-    			if (dirty & /*param*/ 1 && t39_value !== (t39_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.y)) + "")) set_data_dev(t39, t39_value);
-    			if (dirty & /*param*/ 1 && t44_value !== (t44_value = round(/*normalise*/ ctx[1](/*param*/ ctx[0].mods.random)) + "")) set_data_dev(t44, t44_value);
-    			if (dirty & /*param*/ 1 && t47_value !== (t47_value = /*param*/ ctx[0].description + "")) set_data_dev(t47, t47_value);
+
+    			if (dirty & /*val*/ 2) {
+    				prop_dev(input, "value", /*val*/ ctx[1]);
+    			}
+
+    			if (dirty & /*param*/ 1 && t10_value !== (t10_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "")) set_data_dev(t10, t10_value);
+    			if (dirty & /*param*/ 1 && t15_value !== (t15_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "")) set_data_dev(t15, t15_value);
+    			if (dirty & /*param*/ 1 && t20_value !== (t20_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "")) set_data_dev(t20, t20_value);
+    			if (dirty & /*param*/ 1 && t25_value !== (t25_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.a)) + "")) set_data_dev(t25, t25_value);
+    			if (dirty & /*param*/ 1 && t30_value !== (t30_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.b)) + "")) set_data_dev(t30, t30_value);
+    			if (dirty & /*param*/ 1 && t35_value !== (t35_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.x)) + "")) set_data_dev(t35, t35_value);
+    			if (dirty & /*param*/ 1 && t40_value !== (t40_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.y)) + "")) set_data_dev(t40, t40_value);
+    			if (dirty & /*param*/ 1 && t45_value !== (t45_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.random)) + "")) set_data_dev(t45, t45_value);
+    			if (dirty & /*param*/ 1 && t48_value !== (t48_value = /*param*/ ctx[0].description + "")) set_data_dev(t48, t48_value);
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -3029,7 +3056,7 @@ var app = (function () {
     const xMax = 1024;
 
     function round(num) {
-    	return Math.round(num * 100 + Number.EPSILON) / 100;
+    	return Math.round(num * 10 + Number.EPSILON) / 10;
     }
 
     function instance($$self, $$props, $$invalidate) {
@@ -3043,6 +3070,17 @@ var app = (function () {
 
     	const paramMin = -100;
     	const xMin = -1024;
+    	let val = param;
+    	let rangeMin = param.min < 0 ? -1024 : 0;
+    	let rangeMax = 1024;
+
+    	function updateVal(e) {
+    		// take into account LERP from minmax
+    		$$invalidate(1, val = e.target.value);
+
+    		$$invalidate(0, param.value = val, param);
+    	}
+
     	const writable_props = ["param"];
 
     	Object.keys($$props).forEach(key => {
@@ -3060,18 +3098,25 @@ var app = (function () {
     		paramMin,
     		paramMax,
     		xMin,
-    		xMax
+    		xMax,
+    		val,
+    		rangeMin,
+    		rangeMax,
+    		updateVal
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("param" in $$props) $$invalidate(0, param = $$props.param);
+    		if ("val" in $$props) $$invalidate(1, val = $$props.val);
+    		if ("rangeMin" in $$props) $$invalidate(3, rangeMin = $$props.rangeMin);
+    		if ("rangeMax" in $$props) $$invalidate(4, rangeMax = $$props.rangeMax);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [param, normalise];
+    	return [param, val, normalise, rangeMin, rangeMax, updateVal];
     }
 
     class Param$1 extends SvelteComponentDev {
@@ -3103,20 +3148,20 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[24] = list[i];
-    	child_ctx[25] = list;
-    	child_ctx[26] = i;
+    	child_ctx[22] = list[i];
+    	child_ctx[23] = list;
+    	child_ctx[24] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[27] = list[i];
-    	child_ctx[29] = i;
+    	child_ctx[25] = list[i];
+    	child_ctx[27] = i;
     	return child_ctx;
     }
 
-    // (115:1) {#if error}
+    // (110:1) {#if error}
     function create_if_block_3(ctx) {
     	let p;
     	let t_value = /*$store*/ ctx[0].context.error + "";
@@ -3127,7 +3172,7 @@ var app = (function () {
     			p = element("p");
     			t = text(t_value);
     			attr_dev(p, "class", "error");
-    			add_location(p, file$1, 115, 2, 2946);
+    			add_location(p, file$1, 110, 2, 2857);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -3145,14 +3190,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(115:1) {#if error}",
+    		source: "(110:1) {#if error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (119:1) {#if !connected}
+    // (114:1) {#if !connected}
     function create_if_block_2(ctx) {
     	let p;
     	let t0;
@@ -3169,9 +3214,9 @@ var app = (function () {
     			br = element("br");
     			t2 = text("\n\t\tPlease use a Chromium based browser like Google Chrome (Edge might work too). Firefox does not work currently.");
     			attr_dev(a, "href", "https://plinkysynth.com/firmware");
-    			add_location(a, file$1, 119, 56, 3072);
-    			add_location(br, file$1, 119, 117, 3133);
-    			add_location(p, file$1, 119, 2, 3018);
+    			add_location(a, file$1, 114, 56, 2983);
+    			add_location(br, file$1, 114, 117, 3044);
+    			add_location(p, file$1, 114, 2, 2929);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -3189,14 +3234,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(119:1) {#if !connected}",
+    		source: "(114:1) {#if !connected}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (197:1) {:else}
+    // (192:1) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -3204,7 +3249,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No patch in browser memory";
-    			add_location(p, file$1, 197, 2, 5388);
+    			add_location(p, file$1, 192, 2, 5299);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -3221,14 +3266,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(197:1) {:else}",
+    		source: "(192:1) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:1) {#if $store.context.patch}
+    // (155:1) {#if $store.context.patch}
     function create_if_block(ctx) {
     	let p0;
     	let t1;
@@ -3354,33 +3399,33 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(p0, file$1, 161, 2, 4266);
+    			add_location(p0, file$1, 156, 2, 4177);
     			attr_dev(button, "class", "svelte-5ss4gt");
-    			add_location(button, file$1, 163, 2, 4342);
-    			add_location(p1, file$1, 165, 2, 4429);
-    			add_location(h30, file$1, 167, 2, 4496);
+    			add_location(button, file$1, 158, 2, 4253);
+    			add_location(p1, file$1, 160, 2, 4340);
+    			add_location(h30, file$1, 162, 2, 4407);
     			attr_dev(label, "for", "i-link-url");
-    			add_location(label, file$1, 168, 2, 4521);
+    			add_location(label, file$1, 163, 2, 4432);
     			attr_dev(input0, "class", "link svelte-5ss4gt");
     			input0.value = /*linkUrl*/ ctx[5];
     			attr_dev(input0, "id", "i-link-url");
-    			add_location(input0, file$1, 169, 2, 4561);
-    			add_location(h31, file$1, 171, 2, 4617);
+    			add_location(input0, file$1, 164, 2, 4472);
+    			add_location(h31, file$1, 166, 2, 4528);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "maxlength", "8");
     			input1.value = input1_value_value = /*$store*/ ctx[0].context.patch.name;
     			attr_dev(input1, "id", "i-name");
-    			add_location(input1, file$1, 172, 2, 4652);
+    			add_location(input1, file$1, 167, 2, 4563);
     			attr_dev(select, "id", "i-category");
-    			add_location(select, file$1, 173, 2, 4762);
-    			add_location(h32, file$1, 180, 2, 4961);
-    			add_location(br0, file$1, 183, 34, 5018);
-    			add_location(br1, file$1, 184, 38, 5061);
-    			add_location(br2, file$1, 185, 47, 5113);
-    			add_location(br3, file$1, 186, 49, 5167);
-    			add_location(p2, file$1, 182, 2, 4980);
+    			add_location(select, file$1, 168, 2, 4673);
+    			add_location(h32, file$1, 175, 2, 4872);
+    			add_location(br0, file$1, 178, 34, 4929);
+    			add_location(br1, file$1, 179, 38, 4972);
+    			add_location(br2, file$1, 180, 47, 5024);
+    			add_location(br3, file$1, 181, 49, 5078);
+    			add_location(p2, file$1, 177, 2, 4891);
     			attr_dev(ul, "class", "params svelte-5ss4gt");
-    			add_location(ul, file$1, 189, 2, 5182);
+    			add_location(ul, file$1, 184, 2, 5093);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -3569,26 +3614,26 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(160:1) {#if $store.context.patch}",
+    		source: "(155:1) {#if $store.context.patch}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (175:3) {#each PatchCategories as category, i}
+    // (170:3) {#each PatchCategories as category, i}
     function create_each_block_1(ctx) {
     	let option;
-    	let t_value = /*category*/ ctx[27] + "";
+    	let t_value = /*category*/ ctx[25] + "";
     	let t;
 
     	const block = {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = /*i*/ ctx[29];
+    			option.__value = /*i*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$1, 175, 4, 4896);
+    			add_location(option, file$1, 170, 4, 4807);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -3604,27 +3649,27 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(175:3) {#each PatchCategories as category, i}",
+    		source: "(170:3) {#each PatchCategories as category, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (192:4) {#if param.name && !param.name.endsWith('_UNUSED')}
+    // (187:4) {#if param.name && !param.name.endsWith('_UNUSED')}
     function create_if_block_1(ctx) {
     	let paramlistitem;
     	let updating_param;
     	let current;
 
     	function paramlistitem_param_binding(value) {
-    		/*paramlistitem_param_binding*/ ctx[15].call(null, value, /*param*/ ctx[24], /*each_value*/ ctx[25], /*param_index*/ ctx[26]);
+    		/*paramlistitem_param_binding*/ ctx[15].call(null, value, /*param*/ ctx[22], /*each_value*/ ctx[23], /*param_index*/ ctx[24]);
     	}
 
     	let paramlistitem_props = {};
 
-    	if (/*param*/ ctx[24] !== void 0) {
-    		paramlistitem_props.param = /*param*/ ctx[24];
+    	if (/*param*/ ctx[22] !== void 0) {
+    		paramlistitem_props.param = /*param*/ ctx[22];
     	}
 
     	paramlistitem = new Param$1({
@@ -3648,7 +3693,7 @@ var app = (function () {
 
     			if (!updating_param && dirty & /*$store*/ 1) {
     				updating_param = true;
-    				paramlistitem_changes.param = /*param*/ ctx[24];
+    				paramlistitem_changes.param = /*param*/ ctx[22];
     				add_flush_callback(() => updating_param = false);
     			}
 
@@ -3672,16 +3717,16 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(192:4) {#if param.name && !param.name.endsWith('_UNUSED')}",
+    		source: "(187:4) {#if param.name && !param.name.endsWith('_UNUSED')}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (191:3) {#each $store.context.patch.params as param}
+    // (186:3) {#each $store.context.patch.params as param}
     function create_each_block(ctx) {
-    	let show_if = /*param*/ ctx[24].name && !/*param*/ ctx[24].name.endsWith("_UNUSED");
+    	let show_if = /*param*/ ctx[22].name && !/*param*/ ctx[22].name.endsWith("_UNUSED");
     	let if_block_anchor;
     	let current;
     	let if_block = show_if && create_if_block_1(ctx);
@@ -3697,7 +3742,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$store*/ 1) show_if = /*param*/ ctx[24].name && !/*param*/ ctx[24].name.endsWith("_UNUSED");
+    			if (dirty & /*$store*/ 1) show_if = /*param*/ ctx[22].name && !/*param*/ ctx[22].name.endsWith("_UNUSED");
 
     			if (show_if) {
     				if (if_block) {
@@ -3741,7 +3786,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(191:3) {#each $store.context.patch.params as param}",
+    		source: "(186:3) {#each $store.context.patch.params as param}",
     		ctx
     	});
 
@@ -3837,32 +3882,32 @@ var app = (function () {
     			t21 = space();
     			if_block2.c();
     			attr_dev(h1, "class", "svelte-5ss4gt");
-    			add_location(h1, file$1, 111, 1, 2860);
-    			add_location(h20, file$1, 112, 1, 2891);
+    			add_location(h1, file$1, 106, 1, 2771);
+    			add_location(h20, file$1, 107, 1, 2802);
     			set_style(button0, "display", !/*connected*/ ctx[2] ? "block" : "none");
     			attr_dev(button0, "class", "svelte-5ss4gt");
-    			add_location(button0, file$1, 123, 1, 3264);
-    			add_location(h21, file$1, 126, 2, 3415);
-    			add_location(p, file$1, 127, 2, 3432);
+    			add_location(button0, file$1, 118, 1, 3175);
+    			add_location(h21, file$1, 121, 2, 3326);
+    			add_location(p, file$1, 122, 2, 3343);
     			attr_dev(label, "for", "i-patch-number");
-    			add_location(label, file$1, 128, 2, 3509);
+    			add_location(label, file$1, 123, 2, 3420);
     			attr_dev(input, "min", "1");
     			attr_dev(input, "max", "32");
     			attr_dev(input, "type", "number");
     			input.disabled = /*disabled*/ ctx[3];
     			attr_dev(input, "id", "i-patch-number");
-    			add_location(input, file$1, 129, 2, 3560);
+    			add_location(input, file$1, 124, 2, 3471);
     			button1.disabled = /*disabled*/ ctx[3];
     			attr_dev(button1, "class", "svelte-5ss4gt");
-    			add_location(button1, file$1, 138, 2, 3719);
+    			add_location(button1, file$1, 133, 2, 3630);
     			button2.disabled = /*disabled*/ ctx[3];
     			attr_dev(button2, "class", "svelte-5ss4gt");
-    			add_location(button2, file$1, 139, 2, 3790);
+    			add_location(button2, file$1, 134, 2, 3701);
     			set_style(div, "display", /*connected*/ ctx[2] ? "block" : "none");
-    			add_location(div, file$1, 125, 1, 3359);
-    			add_location(h22, file$1, 157, 1, 4211);
+    			add_location(div, file$1, 120, 1, 3270);
+    			add_location(h22, file$1, 152, 1, 4122);
     			attr_dev(main, "class", "svelte-5ss4gt");
-    			add_location(main, file$1, 110, 0, 2852);
+    			add_location(main, file$1, 105, 0, 2763);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4022,9 +4067,6 @@ var app = (function () {
     	return block;
     }
 
-    const paramMax$1 = 100;
-    const xMax$1 = 1024;
-
     function compress(input) {
     	return input.split("").reduce(
     		(o, c) => {
@@ -4106,8 +4148,6 @@ var app = (function () {
     		send({ type: "clearPatch" });
     	}
 
-    	const paramMin = -100;
-    	const xMin = -1024;
     	let patchVal = $store.context.patchNumber + 1;
 
     	let setPatchVal = () => {
@@ -4162,10 +4202,6 @@ var app = (function () {
     		loadPatch,
     		savePatch,
     		clearPatch,
-    		paramMin,
-    		paramMax: paramMax$1,
-    		xMin,
-    		xMax: xMax$1,
     		patchVal,
     		setPatchVal,
     		selectBankItem,
