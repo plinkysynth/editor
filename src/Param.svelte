@@ -1,9 +1,20 @@
 <script>
-  import { formatValue } from "./lib/utils.js"
-
   export let param = null
   
-  let val = param.value;
+  function normalise(x) {
+    return (paramMax - paramMin) * ((x-xMin)/(xMax - xMin)) + paramMin;
+  }
+  
+  function round(num) {
+    return Math.round( num * 10 + Number.EPSILON ) / 10;
+  }
+  
+  const paramMin = -100;
+  const paramMax = 100;
+  const xMin = -1024;
+  const xMax = 1024;
+  
+  let val = param;
   
   let rangeMin = param.min < 0 ? -1024 : 0;
   let rangeMax = 1024;
@@ -11,6 +22,10 @@
   let selectOptions = param.getSelectOptions();
   let activeOption = param.getActiveSelectOption();
   let hasDropdown = selectOptions !== null;
+  
+  let displayValue = activeOption 
+    ? activeOption.label
+    : round(normalise(param.value))
   
   function updateVal(e) {
     // take into account LERP from minmax
@@ -36,7 +51,7 @@
       {param.name}
     </h3>
     <p>
-      {param.displayValue}
+      {displayValue}
     </p>
   </header>
 <!--   <code>
@@ -69,37 +84,37 @@
     <table>
       <tr>
         <td>Base</td>
-        <td>{formatValue(param.value)}%<br></td>
+        <td>{round(normalise(param.value))}%<br></td>
       </tr>
       <tr>
         <td>Env</td>
-        <td>{formatValue(param.mods.env)}%<br></td>
+        <td>{round(normalise(param.mods.env))}%<br></td>
       </tr>
       <tr>
         <td>Pressure</td>
-        <td>{formatValue(param.mods.pressure)}%<br></td>
+        <td>{round(normalise(param.mods.pressure))}%<br></td>
       </tr>
       <tr>
         <td>A</td>
-        <td>{formatValue(param.mods.a)}%<br></td>
+        <td>{round(normalise(param.mods.a))}%<br></td>
       </tr>
     </table>
     <table>
       <tr>
         <td>B</td>
-        <td>{formatValue(param.mods.b)}%<br></td>
+        <td>{round(normalise(param.mods.b))}%<br></td>
       </tr>
       <tr>
         <td>X</td>
-        <td>{formatValue(param.mods.x)}%<br></td>
+        <td>{round(normalise(param.mods.x))}%<br></td>
       </tr>
       <tr>
         <td>Y</td>
-        <td>{formatValue(param.mods.y)}%<br></td>
+        <td>{round(normalise(param.mods.y))}%<br></td>
       </tr>
       <tr>
         <td>Random</td>
-        <td>{formatValue(param.mods.random)}%<br></td>
+        <td>{round(normalise(param.mods.random))}%<br></td>
       </tr>
     </table>
   </div>
