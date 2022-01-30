@@ -28,6 +28,9 @@
     // take into account LERP from minmax
     val = e.target.value;
     param.value = val
+    displayValue = activeOption 
+    ? activeOption.label
+    : formatValue(param.value)
   }
   
   function updateFromNormalised(e) {
