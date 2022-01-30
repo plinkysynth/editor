@@ -1,7 +1,7 @@
 <script>
   import { formatValue, denormalise } from "./lib/utils.js"
 
-  export let param = null
+  export let param = null;
   
   const paramMin = -100;
   const paramMax = 100;
@@ -10,11 +10,11 @@
   
   let val = param.value;
   
-  let rangeMin = param.min < 0 ? -1024 : 0;
-  let rangeMax = 1024;
+  let rangeMin = param.min < 0 ? xMin : 0;
+  let rangeMax = xMax;
   
-  let normalisedRangeMin = param.min < 0 ? -100 : 0;
-  let normalisedRangeMax = 100
+  let normalisedRangeMin = param.min < 0 ? paramMin : 0;
+  let normalisedRangeMax = paramMax;
   
   let selectOptions = param.getSelectOptions();
   let activeOption = param.getActiveSelectOption();
@@ -22,21 +22,21 @@
   
   let displayValue = activeOption 
     ? activeOption.label
-    : formatValue(param.value)
+    : formatValue(param.value);
   
   function updateVal(e) {
     // take into account LERP from minmax
     val = e.target.value;
-    param.value = val
-    displayValue = activeOption 
+    param.value = val;
+    displayValue = activeOption
     ? activeOption.label
-    : formatValue(param.value)
+    : formatValue(param.value);
   }
   
   function ensureInBounds (n) {
     if (n > rangeMax) n = rangeMax;
     if (n < rangeMin) n = rangeMin;
-    return n
+    return n;
   }
   
   function updateFromNormalised(e) {
@@ -48,19 +48,9 @@
   function updateMod(e) {
     const modsrc = e.target.dataset.mod;
     let newValue = ensureInBounds(denormalise(e.target.value));
-    param.mods[modsrc] = newValue
+    param.mods[modsrc] = newValue;
   }
 </script>
-
-<!-- 
-  
-  TODO
-  + number inputs to update UI state && internal patch params
-  + dropdowns for enumerated params
-  - mod matrix inputs
-  - icons
-  
-  -->
 
 <li>
   <header>
@@ -94,7 +84,7 @@
     min={rangeMin}
     max={rangeMax}
     step={1}
-    value={val}
+    value={displayValue}
     on:input={updateVal}
     passive={false}
   />
@@ -106,7 +96,9 @@
         <td>
           <input
             type="number"
-            value={formatValue(val)}
+            value={displayValue}
+            max={normalisedRangeMax}
+            min={normalisedRangeMin}
             on:change={updateFromNormalised}
           />
         </td>
