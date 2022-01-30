@@ -66,7 +66,15 @@
   <header>
     <img src="icons/{param.icon}" alt=""/> 
     <span>{param.name}</span>
-    <input type="number" value={displayValue}/>
+    {#if !hasDropdown}
+    <input 
+      type="number" 
+      value={displayValue}
+      max={normalisedRangeMax}
+      min={normalisedRangeMin}
+      on:change={updateFromNormalised}
+    />
+    {/if}
   </header>
   <main>
   {#if hasDropdown}
