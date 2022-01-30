@@ -45,7 +45,7 @@
   </code> -->
   {#if hasDropdown}
   <select
-    value={activeOption.value}
+    value={activeOption?activeOption.value:null}
     on:blur={updateVal}
   >
     {#each selectOptions as option, i}
