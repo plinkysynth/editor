@@ -34,8 +34,10 @@
   
   TODO
   + number inputs to update UI state && internal patch params
-  -' dropdowns for enumerated params
-  - drag-to-update numerical params
+  + dropdowns for enumerated params
+  - mod matrix inputs
+  - icons
+  
   -->
 
 <li>

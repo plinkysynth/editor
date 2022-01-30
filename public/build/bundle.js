@@ -2671,7 +2671,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (58:2) {:else}
+    // (60:2) {:else}
     function create_else_block(ctx) {
     	let input;
     	let mounted;
@@ -2686,7 +2686,7 @@ var app = (function () {
     			attr_dev(input, "step", 1);
     			input.value = /*val*/ ctx[1];
     			attr_dev(input, "passive", false);
-    			add_location(input, file, 58, 2, 1190);
+    			add_location(input, file, 60, 2, 1188);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
@@ -2712,14 +2712,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(58:2) {:else}",
+    		source: "(60:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (47:2) {#if hasDropdown}
+    // (49:2) {#if hasDropdown}
     function create_if_block(ctx) {
     	let select;
     	let mounted;
@@ -2740,7 +2740,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(select, file, 47, 2, 973);
+    			add_location(select, file, 49, 2, 971);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, select, anchor);
@@ -2793,14 +2793,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(47:2) {#if hasDropdown}",
+    		source: "(49:2) {#if hasDropdown}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (52:4) {#each selectOptions as option, i}
+    // (54:4) {#each selectOptions as option, i}
     function create_each_block(ctx) {
     	let option;
     	let t0_value = /*option*/ ctx[11].label + "";
@@ -2814,7 +2814,7 @@ var app = (function () {
     			t1 = space();
     			option.__value = /*option*/ ctx[11].value;
     			option.value = option.__value;
-    			add_location(option, file, 52, 6, 1085);
+    			add_location(option, file, 54, 6, 1083);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2831,7 +2831,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(52:4) {#each selectOptions as option, i}",
+    		source: "(54:4) {#each selectOptions as option, i}",
     		ctx
     	});
 
@@ -3038,71 +3038,71 @@ var app = (function () {
     			p = element("p");
     			t48 = text(t48_value);
     			attr_dev(h3, "class", "svelte-cng8sn");
-    			add_location(h3, file, 41, 2, 861);
-    			add_location(br0, file, 43, 18, 910);
-    			add_location(br1, file, 44, 21, 936);
+    			add_location(h3, file, 43, 2, 859);
+    			add_location(br0, file, 45, 18, 908);
+    			add_location(br1, file, 46, 21, 934);
     			attr_dev(code, "class", "svelte-cng8sn");
-    			add_location(code, file, 42, 2, 885);
+    			add_location(code, file, 44, 2, 883);
     			attr_dev(td0, "class", "svelte-cng8sn");
-    			add_location(td0, file, 71, 8, 1392);
-    			add_location(br2, file, 72, 44, 1450);
+    			add_location(td0, file, 73, 8, 1390);
+    			add_location(br2, file, 74, 44, 1448);
     			attr_dev(td1, "class", "svelte-cng8sn");
-    			add_location(td1, file, 72, 8, 1414);
-    			add_location(tr0, file, 70, 6, 1379);
+    			add_location(td1, file, 74, 8, 1412);
+    			add_location(tr0, file, 72, 6, 1377);
     			attr_dev(td2, "class", "svelte-cng8sn");
-    			add_location(td2, file, 75, 8, 1491);
-    			add_location(br3, file, 76, 47, 1551);
+    			add_location(td2, file, 77, 8, 1489);
+    			add_location(br3, file, 78, 47, 1549);
     			attr_dev(td3, "class", "svelte-cng8sn");
-    			add_location(td3, file, 76, 8, 1512);
-    			add_location(tr1, file, 74, 6, 1478);
+    			add_location(td3, file, 78, 8, 1510);
+    			add_location(tr1, file, 76, 6, 1476);
     			attr_dev(td4, "class", "svelte-cng8sn");
-    			add_location(td4, file, 79, 8, 1592);
-    			add_location(br4, file, 80, 52, 1662);
+    			add_location(td4, file, 81, 8, 1590);
+    			add_location(br4, file, 82, 52, 1660);
     			attr_dev(td5, "class", "svelte-cng8sn");
-    			add_location(td5, file, 80, 8, 1618);
-    			add_location(tr2, file, 78, 6, 1579);
+    			add_location(td5, file, 82, 8, 1616);
+    			add_location(tr2, file, 80, 6, 1577);
     			attr_dev(td6, "class", "svelte-cng8sn");
-    			add_location(td6, file, 83, 8, 1703);
-    			add_location(br5, file, 84, 45, 1759);
+    			add_location(td6, file, 85, 8, 1701);
+    			add_location(br5, file, 86, 45, 1757);
     			attr_dev(td7, "class", "svelte-cng8sn");
-    			add_location(td7, file, 84, 8, 1722);
-    			add_location(tr3, file, 82, 6, 1690);
+    			add_location(td7, file, 86, 8, 1720);
+    			add_location(tr3, file, 84, 6, 1688);
     			attr_dev(table0, "class", "svelte-cng8sn");
-    			add_location(table0, file, 69, 4, 1365);
+    			add_location(table0, file, 71, 4, 1363);
     			attr_dev(td8, "class", "svelte-cng8sn");
-    			add_location(td8, file, 89, 8, 1825);
-    			add_location(br6, file, 90, 45, 1881);
+    			add_location(td8, file, 91, 8, 1823);
+    			add_location(br6, file, 92, 45, 1879);
     			attr_dev(td9, "class", "svelte-cng8sn");
-    			add_location(td9, file, 90, 8, 1844);
-    			add_location(tr4, file, 88, 6, 1812);
+    			add_location(td9, file, 92, 8, 1842);
+    			add_location(tr4, file, 90, 6, 1810);
     			attr_dev(td10, "class", "svelte-cng8sn");
-    			add_location(td10, file, 93, 8, 1922);
-    			add_location(br7, file, 94, 45, 1978);
+    			add_location(td10, file, 95, 8, 1920);
+    			add_location(br7, file, 96, 45, 1976);
     			attr_dev(td11, "class", "svelte-cng8sn");
-    			add_location(td11, file, 94, 8, 1941);
-    			add_location(tr5, file, 92, 6, 1909);
+    			add_location(td11, file, 96, 8, 1939);
+    			add_location(tr5, file, 94, 6, 1907);
     			attr_dev(td12, "class", "svelte-cng8sn");
-    			add_location(td12, file, 97, 8, 2019);
-    			add_location(br8, file, 98, 45, 2075);
+    			add_location(td12, file, 99, 8, 2017);
+    			add_location(br8, file, 100, 45, 2073);
     			attr_dev(td13, "class", "svelte-cng8sn");
-    			add_location(td13, file, 98, 8, 2038);
-    			add_location(tr6, file, 96, 6, 2006);
+    			add_location(td13, file, 100, 8, 2036);
+    			add_location(tr6, file, 98, 6, 2004);
     			attr_dev(td14, "class", "svelte-cng8sn");
-    			add_location(td14, file, 101, 8, 2116);
-    			add_location(br9, file, 102, 50, 2182);
+    			add_location(td14, file, 103, 8, 2114);
+    			add_location(br9, file, 104, 50, 2180);
     			attr_dev(td15, "class", "svelte-cng8sn");
-    			add_location(td15, file, 102, 8, 2140);
-    			add_location(tr7, file, 100, 6, 2103);
+    			add_location(td15, file, 104, 8, 2138);
+    			add_location(tr7, file, 102, 6, 2101);
     			attr_dev(table1, "class", "svelte-cng8sn");
-    			add_location(table1, file, 87, 4, 1798);
+    			add_location(table1, file, 89, 4, 1796);
     			attr_dev(div0, "class", "mods svelte-cng8sn");
-    			add_location(div0, file, 68, 2, 1342);
+    			add_location(div0, file, 70, 2, 1340);
     			attr_dev(p, "class", "svelte-cng8sn");
-    			add_location(p, file, 107, 4, 2258);
+    			add_location(p, file, 109, 4, 2256);
     			attr_dev(div1, "class", "description svelte-cng8sn");
-    			add_location(div1, file, 106, 2, 2228);
+    			add_location(div1, file, 108, 2, 2226);
     			attr_dev(li, "class", "svelte-cng8sn");
-    			add_location(li, file, 40, 0, 854);
+    			add_location(li, file, 42, 0, 852);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
