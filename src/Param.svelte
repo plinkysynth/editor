@@ -19,6 +19,10 @@
   let rangeMin = param.min < 0 ? -1024 : 0;
   let rangeMax = 1024;
   
+  let selectOptions = param.getSelectOptions();
+  let activeOption = param.getActiveSelectOption();
+  let hasDropdown = selectOptions !== null;
+  
   function updateVal(e) {
     // take into account LERP from minmax
     val = e.target.value;
@@ -40,6 +44,18 @@
     id: {param.id}<br>
     val {param.value}<br>
   </code>
+  {#if hasDropdown}
+  <select
+    value={activeOption.value}
+    on:blur={updateVal}
+  >
+    {#each selectOptions as option, i}
+      <option value={option.value}>
+        {option.label}
+      </option>
+    {/each}
+  </select>
+  {:else}
   <input 
     type="range"
     min={rangeMin}
@@ -49,6 +65,7 @@
     on:input={updateVal}
     passive={false}
   />
+  {/if}
   <div class="mods">
     <table>
       <tr>

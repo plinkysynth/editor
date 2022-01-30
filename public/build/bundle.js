@@ -2319,15 +2319,28 @@ var app = (function () {
         this.arr[0] = val;
       }
       
-      getDropdownValues () {
+      getActiveSelectOption () {
+        let values = this.getSelectOptions();
+        if (!values) return null
+        
+        const width = 1024 / values.length;
+        
+        const i = Math.floor(this.value / width);
+        
+        return values[i]
+      }
+      
+      getSelectOptions () {
 
         if (this.enum_name) {
+          
+          const length = this.enum_name.length;
           const values = this
             .enum_name
             .map(
               (entry, i) => ({ 
                 label: entry, 
-                value: Math.floor(i * (1024 / arr.length) + (1024 / arr.length * 0.5)) 
+                value: Math.floor(i * (1024 / length) + (1024 / length * 0.5)) 
               })
             );
           return values
@@ -2651,6 +2664,180 @@ var app = (function () {
 
     const file = "src/Param.svelte";
 
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[11] = list[i];
+    	child_ctx[13] = i;
+    	return child_ctx;
+    }
+
+    // (58:2) {:else}
+    function create_else_block(ctx) {
+    	let input;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			input = element("input");
+    			attr_dev(input, "type", "range");
+    			attr_dev(input, "min", /*rangeMin*/ ctx[3]);
+    			attr_dev(input, "max", /*rangeMax*/ ctx[4]);
+    			attr_dev(input, "step", 1);
+    			input.value = /*val*/ ctx[1];
+    			attr_dev(input, "passive", false);
+    			add_location(input, file, 58, 2, 1190);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, input, anchor);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "input", /*updateVal*/ ctx[8], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*val*/ 2) {
+    				prop_dev(input, "value", /*val*/ ctx[1]);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(input);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(58:2) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (47:2) {#if hasDropdown}
+    function create_if_block(ctx) {
+    	let select;
+    	let mounted;
+    	let dispose;
+    	let each_value = /*selectOptions*/ ctx[5];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			select = element("select");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			add_location(select, file, 47, 2, 973);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, select, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(select, null);
+    			}
+
+    			select_option(select, /*activeOption*/ ctx[6].value);
+
+    			if (!mounted) {
+    				dispose = listen_dev(select, "blur", /*updateVal*/ ctx[8], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*selectOptions*/ 32) {
+    				each_value = /*selectOptions*/ ctx[5];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(select, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(select);
+    			destroy_each(each_blocks, detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(47:2) {#if hasDropdown}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (52:4) {#each selectOptions as option, i}
+    function create_each_block(ctx) {
+    	let option;
+    	let t0_value = /*option*/ ctx[11].label + "";
+    	let t0;
+    	let t1;
+
+    	const block = {
+    		c: function create() {
+    			option = element("option");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			option.__value = /*option*/ ctx[11].value;
+    			option.value = option.__value;
+    			add_location(option, file, 52, 6, 1085);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, option, anchor);
+    			append_dev(option, t0);
+    			append_dev(option, t1);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(option);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(52:4) {#each selectOptions as option, i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
     function create_fragment(ctx) {
     	let li;
     	let h3;
@@ -2667,7 +2854,6 @@ var app = (function () {
     	let t5;
     	let br1;
     	let t6;
-    	let input;
     	let t7;
     	let div0;
     	let table0;
@@ -2748,8 +2934,14 @@ var app = (function () {
     	let p;
     	let t48_value = /*param*/ ctx[0].description + "";
     	let t48;
-    	let mounted;
-    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*hasDropdown*/ ctx[7]) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
 
     	const block = {
     		c: function create() {
@@ -2765,7 +2957,7 @@ var app = (function () {
     			t5 = text(t5_value);
     			br1 = element("br");
     			t6 = space();
-    			input = element("input");
+    			if_block.c();
     			t7 = space();
     			div0 = element("div");
     			table0 = element("table");
@@ -2846,78 +3038,71 @@ var app = (function () {
     			p = element("p");
     			t48 = text(t48_value);
     			attr_dev(h3, "class", "svelte-cng8sn");
-    			add_location(h3, file, 37, 2, 714);
-    			add_location(br0, file, 39, 18, 763);
-    			add_location(br1, file, 40, 21, 789);
+    			add_location(h3, file, 41, 2, 861);
+    			add_location(br0, file, 43, 18, 910);
+    			add_location(br1, file, 44, 21, 936);
     			attr_dev(code, "class", "svelte-cng8sn");
-    			add_location(code, file, 38, 2, 738);
-    			attr_dev(input, "type", "range");
-    			attr_dev(input, "min", /*rangeMin*/ ctx[3]);
-    			attr_dev(input, "max", /*rangeMax*/ ctx[4]);
-    			attr_dev(input, "step", 1);
-    			input.value = /*val*/ ctx[1];
-    			attr_dev(input, "passive", false);
-    			add_location(input, file, 42, 2, 806);
+    			add_location(code, file, 42, 2, 885);
     			attr_dev(td0, "class", "svelte-cng8sn");
-    			add_location(td0, file, 54, 8, 1000);
-    			add_location(br2, file, 55, 44, 1058);
+    			add_location(td0, file, 71, 8, 1392);
+    			add_location(br2, file, 72, 44, 1450);
     			attr_dev(td1, "class", "svelte-cng8sn");
-    			add_location(td1, file, 55, 8, 1022);
-    			add_location(tr0, file, 53, 6, 987);
+    			add_location(td1, file, 72, 8, 1414);
+    			add_location(tr0, file, 70, 6, 1379);
     			attr_dev(td2, "class", "svelte-cng8sn");
-    			add_location(td2, file, 58, 8, 1099);
-    			add_location(br3, file, 59, 47, 1159);
+    			add_location(td2, file, 75, 8, 1491);
+    			add_location(br3, file, 76, 47, 1551);
     			attr_dev(td3, "class", "svelte-cng8sn");
-    			add_location(td3, file, 59, 8, 1120);
-    			add_location(tr1, file, 57, 6, 1086);
+    			add_location(td3, file, 76, 8, 1512);
+    			add_location(tr1, file, 74, 6, 1478);
     			attr_dev(td4, "class", "svelte-cng8sn");
-    			add_location(td4, file, 62, 8, 1200);
-    			add_location(br4, file, 63, 52, 1270);
+    			add_location(td4, file, 79, 8, 1592);
+    			add_location(br4, file, 80, 52, 1662);
     			attr_dev(td5, "class", "svelte-cng8sn");
-    			add_location(td5, file, 63, 8, 1226);
-    			add_location(tr2, file, 61, 6, 1187);
+    			add_location(td5, file, 80, 8, 1618);
+    			add_location(tr2, file, 78, 6, 1579);
     			attr_dev(td6, "class", "svelte-cng8sn");
-    			add_location(td6, file, 66, 8, 1311);
-    			add_location(br5, file, 67, 45, 1367);
+    			add_location(td6, file, 83, 8, 1703);
+    			add_location(br5, file, 84, 45, 1759);
     			attr_dev(td7, "class", "svelte-cng8sn");
-    			add_location(td7, file, 67, 8, 1330);
-    			add_location(tr3, file, 65, 6, 1298);
+    			add_location(td7, file, 84, 8, 1722);
+    			add_location(tr3, file, 82, 6, 1690);
     			attr_dev(table0, "class", "svelte-cng8sn");
-    			add_location(table0, file, 52, 4, 973);
+    			add_location(table0, file, 69, 4, 1365);
     			attr_dev(td8, "class", "svelte-cng8sn");
-    			add_location(td8, file, 72, 8, 1433);
-    			add_location(br6, file, 73, 45, 1489);
+    			add_location(td8, file, 89, 8, 1825);
+    			add_location(br6, file, 90, 45, 1881);
     			attr_dev(td9, "class", "svelte-cng8sn");
-    			add_location(td9, file, 73, 8, 1452);
-    			add_location(tr4, file, 71, 6, 1420);
+    			add_location(td9, file, 90, 8, 1844);
+    			add_location(tr4, file, 88, 6, 1812);
     			attr_dev(td10, "class", "svelte-cng8sn");
-    			add_location(td10, file, 76, 8, 1530);
-    			add_location(br7, file, 77, 45, 1586);
+    			add_location(td10, file, 93, 8, 1922);
+    			add_location(br7, file, 94, 45, 1978);
     			attr_dev(td11, "class", "svelte-cng8sn");
-    			add_location(td11, file, 77, 8, 1549);
-    			add_location(tr5, file, 75, 6, 1517);
+    			add_location(td11, file, 94, 8, 1941);
+    			add_location(tr5, file, 92, 6, 1909);
     			attr_dev(td12, "class", "svelte-cng8sn");
-    			add_location(td12, file, 80, 8, 1627);
-    			add_location(br8, file, 81, 45, 1683);
+    			add_location(td12, file, 97, 8, 2019);
+    			add_location(br8, file, 98, 45, 2075);
     			attr_dev(td13, "class", "svelte-cng8sn");
-    			add_location(td13, file, 81, 8, 1646);
-    			add_location(tr6, file, 79, 6, 1614);
+    			add_location(td13, file, 98, 8, 2038);
+    			add_location(tr6, file, 96, 6, 2006);
     			attr_dev(td14, "class", "svelte-cng8sn");
-    			add_location(td14, file, 84, 8, 1724);
-    			add_location(br9, file, 85, 50, 1790);
+    			add_location(td14, file, 101, 8, 2116);
+    			add_location(br9, file, 102, 50, 2182);
     			attr_dev(td15, "class", "svelte-cng8sn");
-    			add_location(td15, file, 85, 8, 1748);
-    			add_location(tr7, file, 83, 6, 1711);
+    			add_location(td15, file, 102, 8, 2140);
+    			add_location(tr7, file, 100, 6, 2103);
     			attr_dev(table1, "class", "svelte-cng8sn");
-    			add_location(table1, file, 70, 4, 1406);
+    			add_location(table1, file, 87, 4, 1798);
     			attr_dev(div0, "class", "mods svelte-cng8sn");
-    			add_location(div0, file, 51, 2, 950);
+    			add_location(div0, file, 68, 2, 1342);
     			attr_dev(p, "class", "svelte-cng8sn");
-    			add_location(p, file, 90, 4, 1866);
+    			add_location(p, file, 107, 4, 2258);
     			attr_dev(div1, "class", "description svelte-cng8sn");
-    			add_location(div1, file, 89, 2, 1836);
+    			add_location(div1, file, 106, 2, 2228);
     			attr_dev(li, "class", "svelte-cng8sn");
-    			add_location(li, file, 36, 0, 707);
+    			add_location(li, file, 40, 0, 854);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2935,7 +3120,7 @@ var app = (function () {
     			append_dev(code, t5);
     			append_dev(code, br1);
     			append_dev(li, t6);
-    			append_dev(li, input);
+    			if_block.m(li, null);
     			append_dev(li, t7);
     			append_dev(li, div0);
     			append_dev(div0, table0);
@@ -3007,21 +3192,12 @@ var app = (function () {
     			append_dev(li, div1);
     			append_dev(div1, p);
     			append_dev(p, t48);
-
-    			if (!mounted) {
-    				dispose = listen_dev(input, "input", /*updateVal*/ ctx[5], false, false, false);
-    				mounted = true;
-    			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*param*/ 1 && t0_value !== (t0_value = /*param*/ ctx[0].name + "")) set_data_dev(t0, t0_value);
     			if (dirty & /*param*/ 1 && t3_value !== (t3_value = /*param*/ ctx[0].id + "")) set_data_dev(t3, t3_value);
     			if (dirty & /*param*/ 1 && t5_value !== (t5_value = /*param*/ ctx[0].value + "")) set_data_dev(t5, t5_value);
-
-    			if (dirty & /*val*/ 2) {
-    				prop_dev(input, "value", /*val*/ ctx[1]);
-    			}
-
+    			if_block.p(ctx, dirty);
     			if (dirty & /*param*/ 1 && t10_value !== (t10_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].value)) + "")) set_data_dev(t10, t10_value);
     			if (dirty & /*param*/ 1 && t15_value !== (t15_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.env)) + "")) set_data_dev(t15, t15_value);
     			if (dirty & /*param*/ 1 && t20_value !== (t20_value = round(/*normalise*/ ctx[2](/*param*/ ctx[0].mods.pressure)) + "")) set_data_dev(t20, t20_value);
@@ -3036,8 +3212,7 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
-    			mounted = false;
-    			dispose();
+    			if_block.d();
     		}
     	};
 
@@ -3073,6 +3248,9 @@ var app = (function () {
     	let val = param;
     	let rangeMin = param.min < 0 ? -1024 : 0;
     	let rangeMax = 1024;
+    	let selectOptions = param.getSelectOptions();
+    	let activeOption = param.getActiveSelectOption();
+    	let hasDropdown = selectOptions !== null;
 
     	function updateVal(e) {
     		// take into account LERP from minmax
@@ -3102,6 +3280,9 @@ var app = (function () {
     		val,
     		rangeMin,
     		rangeMax,
+    		selectOptions,
+    		activeOption,
+    		hasDropdown,
     		updateVal
     	});
 
@@ -3110,13 +3291,26 @@ var app = (function () {
     		if ("val" in $$props) $$invalidate(1, val = $$props.val);
     		if ("rangeMin" in $$props) $$invalidate(3, rangeMin = $$props.rangeMin);
     		if ("rangeMax" in $$props) $$invalidate(4, rangeMax = $$props.rangeMax);
+    		if ("selectOptions" in $$props) $$invalidate(5, selectOptions = $$props.selectOptions);
+    		if ("activeOption" in $$props) $$invalidate(6, activeOption = $$props.activeOption);
+    		if ("hasDropdown" in $$props) $$invalidate(7, hasDropdown = $$props.hasDropdown);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [param, val, normalise, rangeMin, rangeMax, updateVal];
+    	return [
+    		param,
+    		val,
+    		normalise,
+    		rangeMin,
+    		rangeMax,
+    		selectOptions,
+    		activeOption,
+    		hasDropdown,
+    		updateVal
+    	];
     }
 
     class Param$1 extends SvelteComponentDev {
@@ -3146,7 +3340,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file$1 = "src/App.svelte";
 
-    function get_each_context(ctx, list, i) {
+    function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[22] = list[i];
     	child_ctx[23] = list;
@@ -3242,7 +3436,7 @@ var app = (function () {
     }
 
     // (192:1) {:else}
-    function create_else_block(ctx) {
+    function create_else_block$1(ctx) {
     	let p;
 
     	const block = {
@@ -3264,7 +3458,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block.name,
+    		id: create_else_block$1.name,
     		type: "else",
     		source: "(192:1) {:else}",
     		ctx
@@ -3274,7 +3468,7 @@ var app = (function () {
     }
 
     // (155:1) {#if $store.context.patch}
-    function create_if_block(ctx) {
+    function create_if_block$1(ctx) {
     	let p0;
     	let t1;
     	let button;
@@ -3336,7 +3530,7 @@ var app = (function () {
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
     	}
 
     	const out = i => transition_out(each_blocks[i], 1, 1, () => {
@@ -3539,13 +3733,13 @@ var app = (function () {
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context(ctx, each_value, i);
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     						transition_in(each_blocks[i], 1);
     					} else {
-    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i] = create_each_block$1(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
     						each_blocks[i].m(ul, null);
@@ -3612,7 +3806,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block.name,
+    		id: create_if_block$1.name,
     		type: "if",
     		source: "(155:1) {#if $store.context.patch}",
     		ctx
@@ -3725,7 +3919,7 @@ var app = (function () {
     }
 
     // (186:3) {#each $store.context.patch.params as param}
-    function create_each_block(ctx) {
+    function create_each_block$1(ctx) {
     	let show_if = /*param*/ ctx[22].name && !/*param*/ ctx[22].name.endsWith("_UNUSED");
     	let if_block_anchor;
     	let current;
@@ -3784,7 +3978,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block.name,
+    		id: create_each_block$1.name,
     		type: "each",
     		source: "(186:3) {#each $store.context.patch.params as param}",
     		ctx
@@ -3831,7 +4025,7 @@ var app = (function () {
     	let dispose;
     	let if_block0 = /*error*/ ctx[4] && create_if_block_3(ctx);
     	let if_block1 = !/*connected*/ ctx[2] && create_if_block_2(ctx);
-    	const if_block_creators = [create_if_block, create_else_block];
+    	const if_block_creators = [create_if_block$1, create_else_block$1];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
