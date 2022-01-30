@@ -47,13 +47,10 @@
 <li>
   <header>
     <img src="icons/{param.icon}" alt=""/> 
-    <h3>
-      {param.name}
-    </h3>
-    <p>
-      {displayValue}
-    </p>
+    <span>{param.name}</span>
+    <input type="number" value={displayValue}/>
   </header>
+  <main>
 <!--   <code>
     id: {param.id}<br>
     val {param.value}<br>
@@ -122,34 +119,70 @@
     <summary>Details</summary>
     <p>{param.description}</p>
   </details>
+</main>
 </li>
 
 
 <style>
   li {
-    border: 1px solid #ccc;
     padding: 0;
   }
-  li h3 {
-    background: rgb(235, 237, 195);
-    padding: 8px 16px;
-    margin: 0;
-    border-bottom: 1px solid #ccc;
+
+  header, main{
+    padding: 0.5rem;
   }
-  li .mods {
-    display: grid;
-    padding: 16px;
-    grid-template-columns: 1fr 1fr;
+
+  header {
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    gap:0.5rem;
+    flex-direction: row;
+    background-color:#28222e;
+    align-items: center;
+    color:white;
   }
-  li .mods table {
-    width: 100%;
+
+  main{
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-color:#f3f3f3;
+    border-style: solid;
+    border-color:#ccc;
+    border-width:0 2px 2px 2px;
   }
-  li code {
-    padding: 16px;
-    background: #f3e8f8;
+
+  header img {
+    height: 50px;
+  }
+
+  header span {
+    flex: 1 1;
     display: block;
   }
-  li table td {
+
+  header input{
+    width:4em;
+    background-color:black;
+    color:white;
+    border-color:white;
+    border-width:1px;
+    border-radius: 4px;
+  }
+
+  main input,
+  main select{
+    width:100%;
+  }
+
+  .mods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td {
     padding-right: 16px;
     font-size: 14px;
     line-height: 18px;
@@ -168,21 +201,5 @@
     margin: 0;
     font-size: 12px;
     line-height: 16px;
-  }
-  
-  header {
-    display: flex;
-    flex-direction: row;
-    background: white;
-    align-items: center;
-    border-bottom: 1px solid #efefef;
-  }
-  header img {
-    width: 50px;
-    height: 50px;
-  }
-  header h3 {
-    flex: 1 1;
-    display: flex;
   }
 </style>
