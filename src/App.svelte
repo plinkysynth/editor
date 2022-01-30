@@ -7,6 +7,7 @@
 	import { state } from 'robot3';
 	import { PatchCategories } from './lib/plinky/params';
 	import { bytecompress, bytedecompress } from './lib/compress';
+  import ParamListItem from './Param.svelte'
 
 	let port;
 	let inref;
@@ -72,14 +73,6 @@
 		});
 	}
 
-	const paramMin = -100;
-	const paramMax = 100;
-	const xMin = -1024;
-	const xMax = 1024;
-
-	function normalise(x) {
-		return (paramMax - paramMin) * ((x-xMin)/(xMax - xMin)) + paramMin;
-	}
 
 	$: connected = ['connected', 'loadPatch', 'savePatch'].indexOf($store.state) > -1;
 	$: disabled = ['loadPatch', 'savePatch'].indexOf($store.state) > -1;
@@ -95,10 +88,6 @@
 	$: linkUrl = $store.context.patch 
 		? location.protocol+'//'+location.host+location.pathname+'?p='+encodeURIComponent(bytecompress(new Uint8Array($store.context.patch.buffer)))
 		: ""
-
-	function round(num) {
-		return Math.round( num * 100 + Number.EPSILON ) / 100;
-	}
 
 	function selectBankItem(num) {
 		console.log(num);
@@ -196,54 +185,7 @@
 		<ul class="params">
 			{#each $store.context.patch.params as param}
 				{#if param.name && !param.name.endsWith('_UNUSED')}
-					<li>
-						<h3>{param.name}</h3>
-						<code>
-							id: {param.id}<br>
-							val {param.value}<br>
-						</code>
-						<div class="mods">
-							<table>
-								<tr>
-									<td>Base</td>
-									<td>{round(normalise(param.value))}%<br></td>
-								</tr>
-								<tr>
-									<td>Env</td>
-									<td>{round(normalise(param.mods.env))}%<br></td>
-								</tr>
-								<tr>
-									<td>Pressure</td>
-									<td>{round(normalise(param.mods.pressure))}%<br></td>
-								</tr>
-								<tr>
-									<td>A</td>
-									<td>{round(normalise(param.mods.a))}%<br></td>
-								</tr>
-							</table>
-							<table>
-								<tr>
-									<td>B</td>
-									<td>{round(normalise(param.mods.b))}%<br></td>
-								</tr>
-								<tr>
-									<td>X</td>
-									<td>{round(normalise(param.mods.x))}%<br></td>
-								</tr>
-								<tr>
-									<td>Y</td>
-									<td>{round(normalise(param.mods.y))}%<br></td>
-								</tr>
-								<tr>
-									<td>Random</td>
-									<td>{round(normalise(param.mods.random))}%<br></td>
-								</tr>
-							</table>
-						</div>
-						<div class="description">
-							<p>{param.description}</p>
-						</div>
-					</li>
+					<ParamListItem bind:param={param} />
 				{/if}
 			{/each}
 		</ul>
@@ -256,53 +198,16 @@
 <style>
 	.params {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 		gap: 8px;
 		
 		margin: 0;
 		list-style: none;
 		padding: 0;
 	}
-	.params li {
-		border: 1px solid #ccc;
-		padding: 0;
-	}
-	.params li h3 {
-		background: rgb(235, 237, 195);
-		padding: 8px 16px;
-		margin: 0;
-		border-bottom: 1px solid #ccc;
-	}
-	.params li .mods {
-		display: grid;
-		padding: 16px;
-		grid-template-columns: 1fr 1fr;
-	}
-	.params li .mods table {
-		width: 100%;
-	}
-	.params li code {
-		padding: 16px;
-		background: #f3e8f8;
-		display: block;
-	}
-	.params li table td {
-		padding-right: 16px;
-		font-size: 14px;
-		line-height: 18px;
-		border-bottom: 1px solid #efefef;
-	}
-	.params .description {
-		padding: 0 16px 16px;
-	}
 	.link {
-		width: 480px;
-	}
-	.params .description p {
-		margin: 0;
-		font-size: 12px;
-		line-height: 16px;
-	}
+    	width: 480px;
+  	}
 	main {
 		padding: 1em;
 		margin: 0 auto;

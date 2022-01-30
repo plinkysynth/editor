@@ -1,10 +1,14 @@
 import { EParams, PlinkyParams, PatchCategories } from './params';
+import { paramIconMap } from './param-icons.js'
+import { formatValue } from '../utils.js'
 
 function getParam(id) {
   return PlinkyParams.find(param => {
     return param.id === id;
   });
 }
+
+
 
 class Param {
 
@@ -63,6 +67,49 @@ class Param {
   }
   set value(val) {
     this.arr[0] = val
+  }
+  
+  get displayValue() {
+    let activeOption = this.getActiveSelectOption();
+    if (activeOption) return activeOption.label;
+    
+    let suffix = "%"; // todo -- which params have me?
+    return formatValue(this.value) + suffix;
+  }
+  
+  getActiveSelectOption () {
+    let values = this.getSelectOptions()
+    if (!values) return null
+    
+    const width = 1024 / values.length
+    
+    let i = Math.floor(this.value / width)
+    if (i >= values.length) i = values.length - 1 // guard overflow in the top half of the top bucket
+    return  values[i]
+  }
+  
+  get icon () {
+    return paramIconMap[this.id]
+  }
+  
+  getSelectOptions () {
+
+    if (this.enum_name) {
+      
+      const length = this.enum_name.length
+      const values = this
+        .enum_name
+        .map(
+          (entry, i) => ({ 
+            label: entry, 
+            value: Math.floor(i * (1024 / length) + (1024 / length * 0.5)) 
+          })
+        )
+      return values
+    } else {
+      return null
+    }
+
   }
 
 }

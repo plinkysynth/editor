@@ -137,7 +137,7 @@ export const PlinkyParams = [
     "min": -1024,
     "max": 1024,
     "cc": 4,
-    "name":"Drive",
+    "name":"Distortion",
     "description": "Drive/Saturation. When turned up high, the saturation unit will create guitar-like tones, especially when playing polyphonically. It can also be used to compensate for changes in volume, for example if the Sensitivity parameter is low."
   },
   {
@@ -694,6 +694,12 @@ export const PlinkyParams = [
     "min": 0,
     "max": 127,
     "cc": 83,
+    "enum_id": [
+      "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"
+    ],
+    "enum_name": [
+      "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"
+    ],
     "name": "Sequencer pattern #",
     "description": "Controls which sequencer pattern is being played back, allowing you to change patterns from within a preset by assigning an LFO or CV source to this parameter. If you add a slow rising saw to this parameter you can chain various patterns together. "
   },
@@ -997,6 +1003,14 @@ export const PlinkyParams = [
     "cc": 90,
     "name": "Input wet/dry",
     "description": "Sets the balance between the dry signal of the audio inputs and the wet signal passing through the Reverb and Delay units."
+  },
+  {
+    "id": "P_ACCEL_SENS",
+    "min": 0,
+    "max": 127,
+    "cc": -1,
+    "name": "Accelerometer sensitivity",
+    "description": "Sets the sensitivity of the accelerometer. Changes in orientation will send to the X & Y parameters. Turn this up to wiggle X & Y by moving your Plinky around in space."
   },
   {
     "id": "P_SYS_UNUSED1",
