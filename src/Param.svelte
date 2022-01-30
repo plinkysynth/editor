@@ -6,7 +6,7 @@
   }
   
   function round(num) {
-    return Math.round( num * 100 + Number.EPSILON ) / 100;
+    return Math.round( num * 10 + Number.EPSILON ) / 10;
   }
   
   const paramMin = -100;
