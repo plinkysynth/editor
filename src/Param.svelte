@@ -1,4 +1,6 @@
 <script>
+  import { formatValue, normalise, denormalise } from "./lib/utils.js"
+
   export let param = null
   
   function normalise(x) {
@@ -32,6 +34,17 @@
     val = e.target.value;
     param.value = val
   }
+  
+  function updateFromNormalised(e) {
+    e.target.value = denormalise(e.target.value);
+    updateVal(e)
+  }
+  
+  function updateMod(e) {
+    const modsrc = e.target.dataset.mod
+    const newValue = denormalise(e.target.value)
+    param.mods[modsrc] = newValue
+  }
 </script>
 
 <!-- 
@@ -57,8 +70,8 @@
   </code> -->
   {#if hasDropdown}
   <select
-    value={activeOption.value}
-    on:blur={updateVal}
+    value={activeOption?activeOption.value:null}
+    on:change={updateVal}
   >
     {#each selectOptions as option, i}
       <option value={option.value}>
@@ -81,37 +94,92 @@
     <table>
       <tr>
         <td>Base</td>
-        <td>{round(normalise(param.value))}%<br></td>
+        <td>
+          <input
+            type="number"
+            value={formatValue(val)}
+            on:change={updateFromNormalised}
+          />
+        </td>
       </tr>
       <tr>
         <td>Env</td>
-        <td>{round(normalise(param.mods.env))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="env"
+            value={formatValue(param.mods.env)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
       <tr>
         <td>Pressure</td>
-        <td>{round(normalise(param.mods.pressure))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="pressure"
+            value={formatValue(param.mods.pressure)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
       <tr>
         <td>A</td>
-        <td>{round(normalise(param.mods.a))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="a"
+            value={formatValue(param.mods.a)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
     </table>
     <table>
       <tr>
         <td>B</td>
-        <td>{round(normalise(param.mods.b))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="b"
+            value={formatValue(param.mods.b)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
       <tr>
         <td>X</td>
-        <td>{round(normalise(param.mods.x))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="x"
+            value={formatValue(param.mods.x)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
       <tr>
         <td>Y</td>
-        <td>{round(normalise(param.mods.y))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="y"
+            value={formatValue(param.mods.y)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
       <tr>
         <td>Random</td>
-        <td>{round(normalise(param.mods.random))}%<br></td>
+        <td>
+          <input
+            type="number"
+            data-mod="random"
+            value={formatValue(param.mods.random)}
+            on:change={updateMod}
+          />
+        </td>
       </tr>
     </table>
   </div>
