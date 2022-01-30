@@ -68,12 +68,13 @@ class Param {
   getDropdownValues () {
 
     if (this.enum_name) {
+      const length = this.enum_name.length
       const values = this
         .enum_name
         .map(
           (entry, i) => ({ 
             label: entry, 
-            value: Math.floor(i * (1024 / arr.length) + (1024 / arr.length * 0.5)) 
+            value: Math.floor(i * (1024 / length) + (1024 / length * 0.5)) 
           })
         )
       return values
