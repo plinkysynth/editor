@@ -198,7 +198,7 @@
 <style>
 	.params {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 		gap: 8px;
 		
 		margin: 0;
@@ -206,8 +206,8 @@
 		padding: 0;
 	}
 	.link {
-    width: 480px;
-  }
+    	width: 480px;
+  	}
 	main {
 		padding: 1em;
 		margin: 0 auto;
