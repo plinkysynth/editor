@@ -198,7 +198,7 @@
 <style>
 	.params {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 		gap: 8px;
 		
 		margin: 0;
