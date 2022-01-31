@@ -13,13 +13,7 @@ You can then access it in your browser: [http://localhost:5005](http://localhost
 
 ## Deployment
 
-Deployments are automatically done from the `main` branch. To build, run:
-
-```bash
-npm run build
-```
-
-This will replace the content in `/docs/` with the build you just did. Push to deploy.
+Deployments are automatically done from pushes to the `main` branch. Artifacts are in the `gh-pages` branch.
 
 ## How WebUSB works with Plinky
 
