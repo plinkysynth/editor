@@ -27,4 +27,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm i
     - run: npm run build
-
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        publish_dir: docs/public
+        publish_branch: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
