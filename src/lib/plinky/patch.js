@@ -1,6 +1,7 @@
-import { EParams, PlinkyParams, PatchCategories } from './params';
-import { paramIconMap } from './param-icons.js'
+import { EParams, PatchCategories, PlinkyParams } from './params';
+
 import { formatValue } from '../utils.js'
+import { paramIconMap } from './param-icons.js'
 
 function getParam(id) {
   return PlinkyParams.find(param => {
@@ -112,6 +113,21 @@ class Param {
 
   }
 
+  randomise() {
+    const skipParams = ['P_MIXINPUT', 'P_MIXINWETDRY', 'P_HEADPHONE', 'P_MIXWETDRY', 'P_MIXSYNTH'];
+    if(skipParams.includes(this.id)) {
+      return;
+    }
+    // randomise value within this.min and this.max
+    const min = this.min;
+    const max = this.max;
+    const range = max - min;
+    const randomness = Math.random() * range;
+    const value = min + randomness;
+    this.value = value < 1 ? value : parseInt(value);
+    console.log('new value', this.id, this.min, this.max, range, randomness, value, this.value);
+  }
+
 }
 
 
@@ -180,6 +196,13 @@ export class Patch {
       nameArray[i] = charCode;
       i++;
     }
+  }
+
+  randomise() {
+    console.log('randomising patch');
+    this.params.forEach(param => {
+      param.randomise();
+    });
   }
 
   /**

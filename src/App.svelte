@@ -74,7 +74,7 @@
 	}
 
 
-	$: connected = ['connected', 'loadPatch', 'savePatch'].indexOf($store.state) > -1;
+	$: connected = ['connected', 'loadPatch', 'savePatch', 'randomise'].indexOf($store.state) > -1;
 	$: disabled = ['loadPatch', 'savePatch'].indexOf($store.state) > -1;
 	$: error = ['error'].indexOf($store.state) > -1;
 		
@@ -99,6 +99,12 @@
 		
 	function updateCategory (e) {
 		$store.context.patch.category = e.target.value;
+	}
+
+	function randomisePatch () {
+		send({
+			type: 'randomise'
+		});
 	}
 
 </script>
@@ -158,7 +164,7 @@
 
 		<button on:click|preventDefault={clearPatch}>Clear patch in browser memory</button>
 
-		<p>Loaded: {$store.context.patch.buffer.byteLength} bytes</p>
+		<!--<p>Loaded: {$store.context.patch.buffer.byteLength} bytes</p>-->
 		
 		<h3>Link to patch</h3>
 		<label for="i-link-url">Link:</label>
@@ -172,6 +178,11 @@
 			{/each}
 		</select>
 
+		<h3>Randomise patch</h3>
+
+		<p>This will randomise the patch in the browser memory- if you want to transfer it over to Plinky, press "Save patch".</p>
+
+		<button on:click|preventDefault={randomisePatch}>Randomise all base parameters except volume + dry/wet</button>
 
 		<h3>Params</h3>
 
