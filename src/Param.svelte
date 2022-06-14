@@ -8,7 +8,7 @@
   const xMin = -1024;
   const xMax = 1024;
   
-  let val = param.value;
+  $: val = param.value;
   
   let rangeMin = param.min < 0 ? xMin : 0;
   let rangeMax = xMax;
@@ -20,7 +20,7 @@
   let activeOption = param.getActiveSelectOption();
   let hasDropdown = selectOptions !== null;
   
-  let displayValue = activeOption 
+  $: displayValue = activeOption 
     ? activeOption.label
     : formatValue(param.value);
   

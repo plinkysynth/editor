@@ -12,9 +12,9 @@ import {
 } from 'robot3';
 
 import { MachineStore } from './stores/MachineStore';
+import { Patch } from './plinky/patch';
 import { Port } from './webusb/WebUSBPort';
 import { Serial } from './webusb/WebUSBSerial';
-import { Patch } from './plinky/patch';
 
 /**
  * Class to wire up the WebUSB port responses to the Plinky state machine
@@ -79,6 +79,12 @@ export async function connect(ctx) {
   }
 }
 
+export async function randomise(ctx) {
+  const { patch } = ctx;
+  patch.randomise();
+  return ctx;
+}
+
 /**
  * Creates a Plinky state machine backed by a context that writes
  * to a Svelte store
@@ -117,7 +123,17 @@ export function createPlinkyMachine(initialContext = {}) {
       transition('clearPatch', 'clearPatch'),
       transition('error', 'error', reduce((ctx, ev) => {
         return { ...ctx, error: ev.error };
-      }))
+      })),
+      transition('randomise', 'randomise'),
+    ),
+    randomise: invoke(
+      randomise,
+      transition('done', 'connected', reduce((ctx, ev) => {
+        return ctx;
+      })),
+      transition('error', 'error', reduce((ctx, ev) =>
+        ({ ...ctx, error: ev.error })
+      ))
     ),
     clearPatch: state(
       immediate('connected', reduce((ctx) => {
