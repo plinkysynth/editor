@@ -1,5 +1,5 @@
 // This is a list of the params in a Plinky patch, in this order.
-// The order is therefore important. The list is from params_new.h in the Plinky fw.
+// The order is important. The list is from params_new.h in the Plinky firmware.
 // It is used to translate the TypedArray that we get from the device into JSON.
 export const EParams = [
   "P_PWM",
@@ -98,6 +98,142 @@ export const EParams = [
   "P_SYS_UNUSED2",
   "P_SYS_UNUSED3",
   "P_ACCEL_SENS",
+];
+
+// Below are used as categories for the random function
+export const SynthParams = [
+  "P_PWM",
+  "P_DRIVE",
+  "P_PITCH",
+  "P_OCT",
+  "P_GLIDE",
+  "P_INTERVAL",
+  "P_NOISE",
+  "P_MIXRESO",
+  "P_ROTATE",
+  "P_SCALE",
+  "P_MICROTUNE",
+  "P_STRIDE",
+  "P_SENS"
+];
+
+export const Envelope1Params = [
+  "P_A",
+  "P_D",
+  "P_S",
+  "P_R",
+  "P_ENV_LEVEL1",
+];
+
+export const Envelope2Params = [
+  "P_A2",
+  "P_D2",
+  "P_S2",
+  "P_R2",
+  "P_ENV_LEVEL" // TODO: is this LEVEL or LEVEL2? it's LEVEL below..
+];
+
+export const EffectParams = [
+  "P_DLSEND",
+  "P_DLTIME",
+  "P_DLRATIO",
+  "P_DLWOB",
+  "P_DLFB",
+  "P_TEMPO",
+  "P_RVSEND",
+  "P_RVTIME",
+  "P_RVSHIM",
+  "P_RVWOB",
+];
+
+export const ArpParams = [
+  "P_ARPMODE",
+  "P_ARPDIV",
+  "P_ARPPROB",
+  "P_ARPLEN",
+  "P_ARPOCT",
+];
+
+export const SeqParams = [
+  "P_SEQMODE",
+  "P_SEQDIV",
+  "P_SEQPROB",
+  "P_SEQLEN",
+  "P_GATE_LENGTH",
+];
+
+export const SamplerParams = [
+  "P_SMP_POS",
+  "P_SMP_GRAINSIZE",
+  "P_SMP_RATE",
+  "P_SMP_TIME",
+  "P_JIT_POS",
+  "P_JIT_GRAINSIZE",
+  "P_JIT_RATE",
+  "P_JIT_PULSE",
+];
+
+export const ModParams = [
+  "P_ASCALE",
+  "P_AOFFSET",
+  "P_ADEPTH",
+  "P_AFREQ",
+  "P_ASHAPE",
+  "P_AWARP",
+  "P_BSCALE",
+  "P_BOFFSET",
+  "P_BDEPTH",
+  "P_BFREQ",
+  "P_BSHAPE",
+  "P_BWARP",
+  "P_XSCALE",
+  "P_XOFFSET",
+  "P_XDEPTH",
+  "P_XFREQ",
+  "P_XSHAPE",
+  "P_XWARP",
+  "P_YSCALE",
+  "P_YOFFSET",
+  "P_YDEPTH",
+  "P_YFREQ",
+  "P_YSHAPE",
+  "P_YWARP",
+];
+
+export const ModAParams = [
+  "P_ASCALE",
+  "P_AOFFSET",
+  "P_ADEPTH",
+  "P_AFREQ",
+  "P_ASHAPE",
+  "P_AWARP",
+];
+
+export const ModBParams = [
+  "P_BSCALE",
+  "P_BOFFSET",
+  "P_BDEPTH",
+  "P_BFREQ",
+  "P_BSHAPE",
+  "P_BWARP",
+];
+
+export const ModXParams = [
+  "P_XSCALE",
+  "P_XOFFSET",
+  "P_XDEPTH",
+  "P_XFREQ",
+  "P_XSHAPE",
+  "P_XWARP",
+];
+
+export const ModYParams = [
+  "P_YSCALE",
+  "P_YOFFSET",
+  "P_YDEPTH",
+  "P_YFREQ",
+  "P_YSHAPE",
+  "P_YWARP",
 ];
 
 export const PatchCategories = [

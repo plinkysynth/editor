@@ -1,4 +1,4 @@
-import { EParams, PatchCategories, PlinkyParams } from './params';
+import { ArpParams, EParams, EffectParams, Envelope1Params, Envelope2Params, ModAParams, ModBParams, ModXParams, ModYParams, PatchCategories, PlinkyParams, SamplerParams, SeqParams, SynthParams } from './params';
 
 import { formatValue } from '../utils.js'
 import { paramIconMap } from './param-icons.js'
@@ -8,8 +8,6 @@ function getParam(id) {
     return param.id === id;
   });
 }
-
-
 
 class Param {
 
@@ -114,10 +112,6 @@ class Param {
   }
 
   randomise() {
-    const skipParams = ['P_MIXINPUT', 'P_MIXINWETDRY', 'P_HEADPHONE', 'P_MIXWETDRY', 'P_MIXSYNTH'];
-    if(skipParams.includes(this.id)) {
-      return;
-    }
     // randomise value within this.min and this.max
     const min = this.min;
     const max = this.max;
@@ -198,10 +192,48 @@ export class Patch {
     }
   }
 
-  randomise() {
-    console.log('randomising patch');
+  randomise(opts) {
+    console.log('randomising patch', opts);
+    const categories = opts.categories;
+    const paramsToRandomise = [];
+    if(categories.includes('synth')) {
+      paramsToRandomise.push(...SynthParams);
+    }
+    if(categories.includes('envelope-1')) {
+      paramsToRandomise.push(...Envelope1Params);
+    }
+    if(categories.includes('envelope-2')) {
+      paramsToRandomise.push(...Envelope2Params);
+    }
+    if(categories.includes('effects')) {
+      paramsToRandomise.push(...EffectParams);
+    }
+    if(categories.includes('arpeggiator')) {
+      paramsToRandomise.push(...ArpParams);
+    }
+    if(categories.includes('sequencer')) {
+      paramsToRandomise.push(...SeqParams);
+    }
+    if(categories.includes('sampler')) {
+      paramsToRandomise.push(...SamplerParams);
+    }
+    if(categories.includes('mod-a')) {
+      paramsToRandomise.push(...ModAParams);
+    }
+    if(categories.includes('mod-b')) {
+      paramsToRandomise.push(...ModBParams);
+    }
+    if(categories.includes('mod-x')) {
+      paramsToRandomise.push(...ModXParams);
+    }
+    if(categories.includes('mod-y')) {
+      paramsToRandomise.push(...ModYParams);
+    }
+
     this.params.forEach(param => {
-      param.randomise();
+      if(paramsToRandomise.includes(param.id)) {
+        param.randomise();
+      }
     });
   }
 

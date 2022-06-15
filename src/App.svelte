@@ -101,9 +101,24 @@
 		$store.context.patch.category = e.target.value;
 	}
 
+	const availableRandomParams = ['synth', 'envelope-1', 'envelope-2', 'effects', 'arpeggiator', 'sequencer', 'sampler', 'mod-a', 'mod-b', 'mod-x', 'mod-y'];
+
+	let randomParams = [...availableRandomParams];
+
+	function clearRandomParams() {
+		randomParams = [];
+	}
+
+	function selectAllRandomParams() {
+		randomParams = [...availableRandomParams];
+	}
+
 	function randomisePatch () {
 		send({
-			type: 'randomise'
+			type: 'randomise',
+			data: {
+				categories: randomParams
+			}
 		});
 	}
 
@@ -182,7 +197,80 @@
 
 		<p>This will randomise the patch in the browser memory- if you want to transfer it over to Plinky, press "Save patch".</p>
 
-		<button on:click|preventDefault={randomisePatch}>Randomise all base parameters except volume + dry/wet</button>
+		<h4>BASE PARAMS</h4>
+
+		<p>
+			<a href="#" on:click={selectAllRandomParams}>Select all</a> / <a href="#" on:click={clearRandomParams}>Clear all</a>
+		</p>
+
+		<table class="random" border="1" cellpadding="10" style="margin-bottom: 8px;">
+			<tr>
+				<td>
+					<h4>Synth</h4>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-synth" value="synth" bind:group={randomParams}>
+						<label for="i-randomise-synth">Synth</label>
+					</div>
+				</td>
+				<td>
+					<h4>Envelope</h4>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-envelope-1" value="envelope-1" bind:group={randomParams}>
+						<label for="i-randomise-envelope-1">Envelope 1</label>
+					</div>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-envelope-2" value="envelope-2" bind:group={randomParams}>
+						<label for="i-randomise-envelope-2">Envelope 2</label>
+					</div>
+				</td>
+				<td>
+					<h4>Effects</h4>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-effects" value="effects" bind:group={randomParams}>
+						<label for="i-randomise-effects">Effects</label>
+					</div>
+				</td>
+				<td>
+					<h4>Arp / Seq</h4>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-arpeggiator" value="arpeggiator" bind:group={randomParams}>
+						<label for="i-randomise-arpeggiator">Arpeggiator</label>
+					</div>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-sequencer" value="sequencer" bind:group={randomParams}>
+						<label for="i-randomise-sequencer">Sequencer</label>
+					</div>
+				</td>
+				<td>
+					<h4>Sampler</h4>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-sampler" value="sampler" bind:group={randomParams}>
+						<label for="i-randomise-sampler">Sampler</label>
+					</div>
+				</td>
+				<td>
+					<h4>Modulation</h4>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-modulation-a" value="mod-a" bind:group={randomParams}>
+						<label for="i-randomise-modulation-a">A</label>
+					</div>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-modulation-b" value="mod-b" bind:group={randomParams}>
+						<label for="i-randomise-modulation-b">B</label>
+					</div>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-modulation-x" value="mod-x" bind:group={randomParams}>
+						<label for="i-randomise-modulation-c">X</label>
+					</div>
+					<div class="label">
+						<input type="checkbox" id="i-randomise-modulation-y" value="mod-y" bind:group={randomParams}>
+						<label for="i-randomise-modulation-y">Y</label>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<button on:click|preventDefault={randomisePatch}>Randomise these parameters</button>
 
 		<h3>Params</h3>
 
@@ -230,5 +318,11 @@
 		padding: 6px 12px;
 		margin: 0;
 		display: inline-block;
+	}
+
+	table .label {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 8px;
 	}
 </style>

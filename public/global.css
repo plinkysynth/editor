@@ -8,6 +8,10 @@ html > * {
 	box-sizing: border-box;
 }
 
+table > tr {
+	vertical-align: top;
+}
+
 body {
 	margin: 0;
 	padding: 8px;

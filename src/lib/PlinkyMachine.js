@@ -81,7 +81,7 @@ export async function connect(ctx) {
 
 export async function randomise(ctx) {
   const { patch } = ctx;
-  patch.randomise();
+  patch.randomise(ctx.randomiseParams);
   return ctx;
 }
 
@@ -124,7 +124,9 @@ export function createPlinkyMachine(initialContext = {}) {
       transition('error', 'error', reduce((ctx, ev) => {
         return { ...ctx, error: ev.error };
       })),
-      transition('randomise', 'randomise'),
+      transition('randomise', 'randomise', reduce((ctx, ev) => {
+        return { ...ctx, randomiseParams: ev.data };
+      })),
     ),
     randomise: invoke(
       randomise,
